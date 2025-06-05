@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://deni4dosbtepm"]
+
+[ext_resource type="Script" uid="uid://ca618u6vejwj8" path="res://Rope/RopeEnd.gd" id="1_87bya"]
+
+[node name="RopeEnd" type="JoltPinJoint3D" node_paths=PackedStringArray("joint")]
+script = ExtResource("1_87bya")
+joint = NodePath(".")

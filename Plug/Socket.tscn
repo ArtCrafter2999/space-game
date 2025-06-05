@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dp1s54cpcg375"]
+
+[ext_resource type="Script" uid="uid://dg8qqqlib68y6" path="res://Plug/Socket.gd" id="1_ud2eo"]
+[ext_resource type="Texture2D" uid="uid://dm5ufhdwlfhyp" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="2_8fkvl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4rthw"]
+albedo_texture = ExtResource("2_8fkvl")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_c7t83"]
+size = Vector3(0.2, 0.2, 0.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qg3pg"]
+size = Vector3(0.2, 0.2, 0.15)
+
+[node name="Socket" type="Area3D" node_paths=PackedStringArray("plug_place")]
+script = ExtResource("1_ud2eo")
+plug_place = NodePath("Marker3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_4rthw")
+mesh = SubResource("BoxMesh_c7t83")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.085)
+shape = SubResource("BoxShape3D_qg3pg")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08)
+gizmo_extents = 3.1
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

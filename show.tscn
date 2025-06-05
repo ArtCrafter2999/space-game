@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://cintamjylonqj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wffxi"]
+radius = 0.25
+height = 1.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nl1u4"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_g8mhb"]
+material = SubResource("StandardMaterial3D_nl1u4")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fcxek"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4anlw"]
+material = SubResource("StandardMaterial3D_fcxek")
+radius = 0.1
+height = 0.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vj63"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_brd85"]
+material = SubResource("StandardMaterial3D_3vj63")
+radius = 0.1
+height = 0.2
+
+[node name="Show" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.803066, 0.594852, -0.035154, -0.408172, 0.506145, -0.759745, -0.434143, 0.624474, 0.64927, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_wffxi")
+
+[node name="Marker3D" type="Marker3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 2.98023e-08, 1.19209e-07, 2.98023e-08, 1, 8.9407e-08, 0, 1.19209e-07, 1, 0, 0, 0)
+gizmo_extents = 5.15
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D/Marker3D"]
+transform = Transform3D(0.999993, -0.00200325, -0.00354856, 0.00200909, 0.999997, 0.00173271, 0.00354451, -0.00173986, 0.999993, 1, -2.08616e-07, 2.08616e-07)
+mesh = SubResource("SphereMesh_g8mhb")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D/Marker3D"]
+transform = Transform3D(1, -2.98023e-08, -1.49012e-07, -5.96046e-08, 1, 0, -5.96046e-08, -2.98023e-08, 1, -2.98023e-08, 1, -2.98023e-08)
+mesh = SubResource("SphereMesh_4anlw")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="MeshInstance3D/Marker3D"]
+transform = Transform3D(1, 0, -2.08616e-07, -2.98023e-08, 1, 2.98023e-08, -8.9407e-08, -2.98023e-08, 1, -2.98023e-08, 2.98023e-08, 1)
+mesh = SubResource("SphereMesh_brd85")

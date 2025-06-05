@@ -1,0 +1,40 @@
+[gd_scene load_steps=9 format=3 uid="uid://chhtyhruwcfkq"]
+
+[ext_resource type="Script" uid="uid://qqhptdp4ymlp" path="res://Button/Button.gd" id="1_7f5kb"]
+[ext_resource type="Texture2D" uid="uid://dm5ufhdwlfhyp" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="1_wjfgq"]
+[ext_resource type="Texture2D" uid="uid://bq8hjeruxyghp" path="res://addons/kenney_prototype_textures/red/texture_09.png" id="2_rq2r7"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6n4j"]
+albedo_texture = ExtResource("2_rq2r7")
+
+[sub_resource type="BoxMesh" id="BoxMesh_03d7x"]
+size = Vector3(0.1, 0.1, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b5c21"]
+albedo_texture = ExtResource("1_wjfgq")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_vqs0y"]
+size = Vector3(0.2, 0.2, 0.02)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7mr3n"]
+size = Vector3(0.2, 0.2, 0.15)
+
+[node name="Button" type="Area3D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_7f5kb")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.035)
+material_override = SubResource("StandardMaterial3D_g6n4j")
+mesh = SubResource("BoxMesh_03d7x")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_b5c21")
+mesh = SubResource("BoxMesh_vqs0y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.085)
+shape = SubResource("BoxShape3D_7mr3n")

@@ -1,0 +1,127 @@
+[gd_scene load_steps=17 format=3 uid="uid://vlyjwnu5k6jd"]
+
+[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabRigidBody.gd" id="1_6kyr4"]
+[ext_resource type="Script" uid="uid://c5j4j5njaehms" path="res://Prefabs/Microwave.gd" id="1_bhc4q"]
+[ext_resource type="Script" uid="uid://r0sy1477baeg" path="res://Grab/Grabable.gd" id="2_htg57"]
+[ext_resource type="PackedScene" uid="uid://deni4dosbtepm" path="res://Rope/RopeEnd.tscn" id="2_pkpde"]
+[ext_resource type="PackedScene" uid="uid://ca8qrqsoc4s41" path="res://Plug/Plug.tscn" id="3_5cmua"]
+[ext_resource type="Texture2D" uid="uid://kj2rkd2syj8s" path="res://addons/kenney_prototype_textures/orange/texture_08.png" id="3_si275"]
+[ext_resource type="Script" uid="uid://bwk1kj6ikohms" path="res://Rope/Rope.gd" id="7_po6t6"]
+[ext_resource type="PackedScene" uid="uid://b6shb8uin2osn" path="res://Rope/RopeSegment.tscn" id="8_t0dnl"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_22c3n"]
+friction = 0.9
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_de8gq"]
+size = Vector3(0.95, 0.6, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0vs2v"]
+size = Vector3(0.95, 0.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g70gp"]
+albedo_texture = ExtResource("3_si275")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_udgi6"]
+size = Vector3(0.95, 0.6, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ab8v2"]
+albedo_texture = ExtResource("3_si275")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_xmg8j"]
+size = Vector3(0.1, 0.5, 0.96)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ydckq"]
+size = Vector3(0.1, 0.5, 0.96)
+
+[node name="Microwave" type="RigidBody3D" node_paths=PackedStringArray("body")]
+collision_mask = 7
+mass = 18.0
+physics_material_override = SubResource("PhysicsMaterial_22c3n")
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.1, 0)
+script = ExtResource("1_bhc4q")
+body = NodePath(".")
+grab_strengh_multiplier = 6.0
+
+[node name="Wire" type="Node3D" parent="." node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("7_po6t6")
+end_a = NodePath("../RopeEnd")
+end_b = NodePath("../Plug/RopeEnd")
+segment = ExtResource("8_t0dnl")
+
+[node name="RopeEnd" parent="." node_paths=PackedStringArray("body") instance=ExtResource("2_pkpde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.53, -0.236673, -0.430806)
+body = NodePath("..")
+
+[node name="Plug" parent="." instance=ExtResource("3_5cmua")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.67576, 2.05312, -0.474608)
+
+[node name="RopeEnd" parent="Plug" node_paths=PackedStringArray("body") instance=ExtResource("2_pkpde")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.08)
+body = NodePath("..")
+
+[node name="HingeJoint" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425, 0.24, -0.48)
+node_a = NodePath("..")
+node_b = NodePath("../Door")
+exclude_nodes_from_collision = false
+
+[node name="LockJoint" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425, 0, 0.48)
+exclude_nodes_from_collision = false
+
+[node name="HingeJoint2" type="PinJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.425, -0.26, -0.48)
+node_a = NodePath("..")
+node_b = NodePath("../Door")
+exclude_nodes_from_collision = false
+
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("grab_object")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_htg57")
+grab_object = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
+shape = SubResource("BoxShape3D_de8gq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
+shape = SubResource("BoxShape3D_0vs2v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
+material_override = SubResource("StandardMaterial3D_g70gp")
+mesh = SubResource("BoxMesh_udgi6")
+skeleton = NodePath("")
+
+[node name="Door" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.476, 0, 0.5)
+collision_mask = 7
+collision_priority = 2.0
+mass = 0.3
+gravity_scale = 0.0
+center_of_mass_mode = 1
+script = ExtResource("1_6kyr4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+material_override = SubResource("StandardMaterial3D_ab8v2")
+mesh = SubResource("BoxMesh_xmg8j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("BoxShape3D_ydckq")
+
+[node name="GrabArea" type="Area3D" parent="Door" node_paths=PackedStringArray("grab_object")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_htg57")
+grab_object = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/GrabArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+shape = SubResource("BoxShape3D_ydckq")
