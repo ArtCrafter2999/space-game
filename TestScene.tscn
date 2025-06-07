@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cfnj4sjd2hyk2"]
+[gd_scene load_steps=42 format=3 uid="uid://cfnj4sjd2hyk2"]
 
 [ext_resource type="Script" uid="uid://cdg2jtdcqkij7" path="res://TestScene.gd" id="1_3qqfy"]
 [ext_resource type="PackedScene" uid="uid://c2jvgq5j7ebc3" path="res://Player/Player.tscn" id="1_ke3s1"]
@@ -17,6 +17,8 @@
 [ext_resource type="Script" uid="uid://ckwxpbc13xs16" path="res://Door/Door.gd" id="13_o3732"]
 [ext_resource type="Texture2D" uid="uid://d3cbqsfmnldpv" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="14_ikdc7"]
 [ext_resource type="PackedScene" uid="uid://chhtyhruwcfkq" path="res://Button/Button.tscn" id="16_xbkab"]
+[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabRigidBody.gd" id="18_qpw16"]
+[ext_resource type="Script" uid="uid://r0sy1477baeg" path="res://Grab/Grabable.gd" id="19_8bg8d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i67pj"]
 shader = ExtResource("2_i67pj")
@@ -99,6 +101,12 @@ size = Vector3(0.4, 4, 2.5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_q0hl2"]
 size = Vector3(0.4, 4, 2.5)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_8bg8d"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f5py1"]
+size = Vector3(0.4, 0.4, 0.4)
+
 [node name="TestScene" type="Node3D"]
 script = ExtResource("1_3qqfy")
 
@@ -173,7 +181,6 @@ shape = SubResource("BoxShape3D_u6j2s")
 
 [node name="Plug" parent="." instance=ExtResource("6_qcksb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.47689, 0.116516, -9.10131)
-mass = 0.5
 
 [node name="Socket" parent="." instance=ExtResource("7_0asn0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.77903, 1.6868, -9.98688)
@@ -446,6 +453,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63204, 2.09245, 5.005)
 
 [node name="Button3" parent="." instance=ExtResource("16_xbkab")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05118, 2.07892, 5.005)
+
+[node name="lantern" type="RigidBody3D" parent="." node_paths=PackedStringArray("body")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.331837, 0.726031, -2.95452)
+collision_mask = 7
+mass = 0.6
+script = ExtResource("18_qpw16")
+body = NodePath(".")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="lantern"]
+shape = SubResource("BoxShape3D_8bg8d")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="lantern"]
+shadow_enabled = true
+
+[node name="Area3D" type="Area3D" parent="lantern" node_paths=PackedStringArray("grab_object")]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("19_8bg8d")
+grab_object = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="lantern/Area3D"]
+shape = SubResource("BoxShape3D_f5py1")
 
 [connection signal="on_click" from="Button" to="AntiGravityRoom/CombinedDoor" method="switch"]
 [connection signal="on_click" from="Button2" to="AntiGravityRoom/CombinedDoor" method="switch"]

@@ -14,9 +14,10 @@ size = Vector3(0.4, 0.4, 0.4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_oa6wj"]
 size = Vector3(0.4, 0.4, 0.4)
 
-[node name="Cube" type="RigidBody3D"]
+[node name="Cube" type="RigidBody3D" node_paths=PackedStringArray("body")]
 collision_mask = 7
 script = ExtResource("1_3an4s")
+body = NodePath(".")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_fxk7j")

@@ -98,7 +98,7 @@ material_override = SubResource("StandardMaterial3D_g70gp")
 mesh = SubResource("BoxMesh_udgi6")
 skeleton = NodePath("")
 
-[node name="Door" type="RigidBody3D" parent="."]
+[node name="Door" type="RigidBody3D" parent="." node_paths=PackedStringArray("body")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.476, 0, 0.5)
 collision_mask = 7
 collision_priority = 2.0
@@ -106,6 +106,7 @@ mass = 0.3
 gravity_scale = 0.0
 center_of_mass_mode = 1
 script = ExtResource("1_6kyr4")
+body = NodePath(".")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
@@ -125,3 +126,7 @@ grab_object = NodePath("..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door/GrabArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_ydckq")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, 0, 0)
+light_color = Color(1, 0.666667, 0, 1)

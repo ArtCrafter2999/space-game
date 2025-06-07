@@ -1,9 +1,9 @@
-extends Area3D
+@tool
+extends GrabRigidBody
 class_name Plug
 
-@export var _body: Node3D
-@export var grab_body: GrabBody
 @export var type = "electrical"
+@export var data: Dictionary
 
 var socket: Socket = null
 var is_plugged: bool:
@@ -11,15 +11,19 @@ var is_plugged: bool:
 		return socket != null;
 
 func _ready() -> void:
-	if(!_body):
-		_body = $".."
-	if(!grab_body):
-		if($".." is GrabBody):
-			grab_body = $".." as GrabBody
-		else:
-			push_error("Grab Body is not set")
-	grab_body.on_grab.connect(_handle_grab)
+	super._ready();
+	on_grab.connect(_handle_grab)
 
 func _handle_grab() -> void:
 	if(socket):
 		socket.plug_out();
+
+func _enter_tree() -> void:
+	if Engine.is_editor_hint():
+		update_configuration_warnings();
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var array = find_children("*", "PlugArea", true, false)
+	if(array.is_empty()):
+		return ["Plug should contain PlugArea as a child"]
+	return []

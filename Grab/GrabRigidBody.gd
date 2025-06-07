@@ -1,7 +1,14 @@
+@tool
 extends GrabBody
 class_name GrabRigidBody
 
-@export var body: RigidBody3D;
+@export var body: RigidBody3D:
+	get: 
+		return body
+	set(value):
+		body = value
+		if Engine.is_editor_hint():
+			update_configuration_warnings();
 @export var grab_strengh_multiplier: float = 1
 @export_range(0, 100) var grabbed_angular_damp: float = 3
 @export_flags_3d_physics var grabbed_colision_layer: int = 4
@@ -48,3 +55,13 @@ func throw(impulse: Vector3):
 func get_mass() -> float:
 	return body.mass / max(body.gravity_scale, 0.2);
 	
+func _enter_tree() -> void:
+	if Engine.is_editor_hint():
+		update_configuration_warnings()
+
+func _get_configuration_warnings() -> PackedStringArray:
+	if(body): return [];
+	var rigidSelf = self
+	if(rigidSelf is not RigidBody3D):
+		return ["GrabRigidBody expects to be of RigidBody type or body is set"]
+	return []

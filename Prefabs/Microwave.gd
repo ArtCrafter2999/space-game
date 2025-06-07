@@ -1,9 +1,10 @@
 extends GrabRigidBody
 @onready var door: GrabRigidBody = $Door
 var _grabbed = false;
-var _door_locked = true;
+var door_locked = true;
 @onready var lock_joint: PinJoint3D = $LockJoint
 @onready var plug: GrabRigidBody = $Plug
+@onready var lights: OmniLight3D = $OmniLight3D
 
 func _ready() -> void:
 	door.on_grab.connect(_handle_door_grab)
@@ -12,7 +13,7 @@ func _ready() -> void:
 func _handle_door_grab():
 	if(_grabbed): return
 	body.freeze = true;
-	_door_locked = false;
+	door_locked = false;
 
 func _handle_door_release():
 	if(_grabbed): return
@@ -32,8 +33,8 @@ func _physics_process(delta: float) -> void:
 	#print(floor(rad_to_deg(door.rotation.y)))
 	var door_rotation = floor(rad_to_deg(door.rotation.y));
 	if(door_rotation > -2 && door_rotation < 20 && !body.freeze):
-		_door_locked = true;
-	if(_door_locked):
+		door_locked = true;
+	if(door_locked):
 		door.body.collision_layer = 0
 		door.body.collision_mask = 0
 		lock_joint.node_a = body.get_path();
@@ -44,4 +45,9 @@ func _physics_process(delta: float) -> void:
 			door.body.collision_mask = body.collision_mask
 		lock_joint.node_a = "";
 		lock_joint.node_b = "";
+	
+	if not door_locked and door_rotation < -3 or door_rotation > 10:
+		lights.visible = true;
+	else:
+		lights.visible = false;
 	#print(_prev_colision_layer)

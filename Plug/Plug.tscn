@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://ca8qrqsoc4s41"]
 
-[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabRigidBody.gd" id="1_cdpv5"]
 [ext_resource type="Script" uid="uid://d2k0po58xv0ib" path="res://Plug/Plug.gd" id="2_gexk8"]
 [ext_resource type="Texture2D" uid="uid://dm5ufhdwlfhyp" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="2_purq6"]
 [ext_resource type="Script" uid="uid://r0sy1477baeg" path="res://Grab/Grabable.gd" id="2_qubd3"]
+[ext_resource type="Script" uid="uid://b6m3xkuagsug1" path="res://Plug/PlugArea.gd" id="3_oqdqx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mt7li"]
 albedo_texture = ExtResource("2_purq6")
@@ -21,7 +21,7 @@ size = Vector3(0.2, 0.2, 0.2)
 [node name="Plug" type="RigidBody3D" node_paths=PackedStringArray("body")]
 collision_mask = 7
 mass = 0.2
-script = ExtResource("1_cdpv5")
+script = ExtResource("2_gexk8")
 body = NodePath(".")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -31,10 +31,9 @@ mesh = SubResource("BoxMesh_i5a68")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_xb8uv")
 
-[node name="PlugArea" type="Area3D" parent="." node_paths=PackedStringArray("_body", "grab_body")]
-script = ExtResource("2_gexk8")
-_body = NodePath("..")
-grab_body = NodePath("..")
+[node name="PlugArea" type="Area3D" parent="." node_paths=PackedStringArray("plug")]
+script = ExtResource("3_oqdqx")
+plug = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlugArea"]
 shape = SubResource("BoxShape3D_xb8uv")
