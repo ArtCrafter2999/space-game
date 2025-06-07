@@ -1,8 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://cfnj4sjd2hyk2"]
+[gd_scene load_steps=38 format=3 uid="uid://cfnj4sjd2hyk2"]
 
 [ext_resource type="Script" uid="uid://cdg2jtdcqkij7" path="res://TestScene.gd" id="1_3qqfy"]
 [ext_resource type="PackedScene" uid="uid://c2jvgq5j7ebc3" path="res://Player/Player.tscn" id="1_ke3s1"]
 [ext_resource type="Texture2D" uid="uid://c31lfxe6vyq02" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_hx0yk"]
+[ext_resource type="Shader" uid="uid://cltajo14l6k6t" path="res://shaders/stars.gdshader" id="2_i67pj"]
 [ext_resource type="Script" uid="uid://buji68gvseklw" path="res://Gravity/GravityBroadcast.gd" id="3_c73p6"]
 [ext_resource type="PackedScene" uid="uid://bnia31i2o3o0h" path="res://Grab/Cube.tscn" id="4_oohy4"]
 [ext_resource type="PackedScene" uid="uid://vlyjwnu5k6jd" path="res://Prefabs/Microwave.tscn" id="5_76gpq"]
@@ -17,16 +18,26 @@
 [ext_resource type="Texture2D" uid="uid://d3cbqsfmnldpv" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="14_ikdc7"]
 [ext_resource type="PackedScene" uid="uid://chhtyhruwcfkq" path="res://Button/Button.tscn" id="16_xbkab"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ihxjt"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i67pj"]
+shader = ExtResource("2_i67pj")
+shader_parameter/sky_color = Color(0.03, 0.05, 0.11, 1)
+shader_parameter/star_base_color = Color(1, 1, 1, 1)
+shader_parameter/star_hue_offset = 0.6
+shader_parameter/star_intensity = 0.08
+shader_parameter/star_twinkle_speed = 0.0
+shader_parameter/star_twinkle_intensity = 0.2
+shader_parameter/layer_scale = 20.0
+shader_parameter/layer_scale_step = 10.0
+shader_parameter/layers_count = 3
 
-[sub_resource type="Sky" id="Sky_j4bli"]
-sky_material = SubResource("ProceduralSkyMaterial_ihxjt")
+[sub_resource type="Sky" id="Sky_i67pj"]
+sky_material = SubResource("ShaderMaterial_i67pj")
 
 [sub_resource type="Environment" id="Environment_eiba1"]
 background_mode = 2
-sky = SubResource("Sky_j4bli")
+sky = SubResource("Sky_i67pj")
+ambient_light_source = 2
+ambient_light_color = Color(0, 0, 0.141176, 1)
 tonemap_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1f4xa"]
@@ -93,6 +104,7 @@ script = ExtResource("1_3qqfy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.499169, 0.0288195, 0, 0.057639, 0.998338, -0.5, 0.864586, -0.0499168, 0, 0, 0)
+visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -182,6 +194,13 @@ skeleton = NodePath("../../pillar3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CylinderShape3D_ekpib")
 
+[node name="OmniLight3D" type="OmniLight3D" parent="pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+visible = false
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
 [node name="pillar" type="AnimatableBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10637, 0.0191647, 1.48974)
 
@@ -196,6 +215,12 @@ mesh = SubResource("CylinderMesh_28meu")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="pillar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
 
 [node name="Cube8" parent="." instance=ExtResource("4_oohy4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.25733, 1.71147, 6.02629)
