@@ -19,3 +19,7 @@ func apply_antigravity():
 	collision_shape_3d.disabled = false;
 func switch():
 	collision_shape_3d.disabled = !collision_shape_3d.disabled;
+
+
+func switch_gravity_room() -> void:
+	pass # Replace with function body.

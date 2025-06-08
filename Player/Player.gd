@@ -11,7 +11,6 @@ class_name Player
 
 @onready var neck: Node3D = $Neck
 @onready var sub_neck: Node3D = $Neck/SubNeck
-@onready var camera = %Camera;
 @onready var on_floor_area: Area3D = $onFloorArea
 @onready var gravity_listener: GravityListener = $GravityListener
 
@@ -122,9 +121,37 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed("Jump") and is_on_floor():
 			apply_central_impulse(jump_velocity * transform.basis.y)
 	
-	var opt_space_mult = space_multiplier if gravity_limit else 1 
+	# Скоротити швидкість з якою переміщуюсь в невагомості
+	var opt_space_mult = space_multiplier if gravity_limit else 1
+	# Максимальна швидкість з модифікаторами 
 	var target_movement : Vector3 = (direction * top_speed * sprint_mult * opt_space_mult);
-	var speed_dif : Vector3 = target_movement - linear_velocity * (Vector3(1, 1, 1) if gravity_limit else Vector3.ONE - basis.y)
+	
+	# Поточна швидкість гравця для додавання прискорення або сповільнення
+	var drag = linear_velocity
+	if not gravity_limit: 
+		# Якщо гравець в гравтації, не додавати відносний Y щоб не було багів по цьому
+		drag -= -basis.y * linear_velocity.dot(-basis.y)
+	
+	# Різниця максимальної швидкості від поточної
+	var speed_dif : Vector3 = target_movement - drag
+	# Присткорення або сповільнення в залежності від input. Не сповільнюється в невагомості
 	var accel_rate = acceleration if target_movement.length() > 0.01 else (0 if gravity_limit else deceleration);
 	var movement : Vector3 = speed_dif * accel_rate;
+	#print(format_vector3(Vector3.ONE - transform.basis.y), " ", (Vector3.ONE - transform.basis.y).length())
+	#print(format_vector3(speed_dif))
+	#print(format_vector3(gravity_listener.calculate_gravity()))
 	apply_central_force(movement)
+
+func format_vector3(v: Vector3) -> String:
+	var x_str = format_component(v.x)
+	var y_str = format_component(v.y)
+	var z_str = format_component(v.z)
+	
+	return "Vector3(%s, %s, %s)" % [x_str, y_str, z_str]
+	
+func format_component(f: float) -> String:
+	var sign = "+" if f >= 0 else "-"
+	var abs_f = abs(f)
+	var int_part = int(abs_f)
+	var leading_zero = "0" if int_part < 10 else ""
+	return "%s%s%.2f" % [sign, leading_zero, abs_f]
