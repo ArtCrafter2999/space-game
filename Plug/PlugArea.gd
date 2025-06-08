@@ -18,10 +18,9 @@ var is_plugged: bool:
 
 func _ready() -> void:
 	if(!plug):
-		if($".." is Plug):
-			plug = $".." as Plug
-		else:
-			push_error("Plug is not set")
+		var parent = get_parent();
+		assert(parent is Plug, "Either parent should be Plug type or plug should be set")
+		plug = parent as Plug
 
 func _enter_tree() -> void:
 	if(!plug):

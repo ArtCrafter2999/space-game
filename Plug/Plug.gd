@@ -1,20 +1,17 @@
 @tool
-extends GrabRigidBody
+extends Node3D
 class_name Plug
 
 @export var type = "electrical"
 @export var data: Dictionary
+@onready var grabbable: GrabbableRigidBody = %Grabbable
 
 var socket: Socket = null
 var is_plugged: bool:
 	get:
 		return socket != null;
 
-func _ready() -> void:
-	super._ready();
-	on_grab.connect(_handle_grab)
-
-func _handle_grab() -> void:
+func unplug() -> void:
 	if(socket):
 		socket.plug_out();
 
@@ -23,7 +20,7 @@ func _enter_tree() -> void:
 		update_configuration_warnings();
 
 func _get_configuration_warnings() -> PackedStringArray:
-	var array = find_children("*", "PlugArea", true, false)
-	if(array.is_empty()):
-		return ["Plug should contain PlugArea as a child"]
-	return []
+	var errors = []
+	if(find_children("*", "PlugArea", true, false).is_empty()):
+		errors.append("Plug should contain PlugArea as a child")
+	return errors

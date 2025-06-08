@@ -9,7 +9,7 @@ extends Node3D
 @export var rotate_speed = .2
 @export var throw_strengh = 15
 
-var _grabbed_body: GrabBody = null;
+var _grabbed_body: Grabbable = null;
 var _rotate = 0;
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -23,9 +23,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("Interact"):
 		var col: Object = interact_ray_cast.get_collider()
-		if(col is Grabable):
-			_grabbed_body = col.grab();
-			_grabbed_body.grab()
+		if(col is Grabbable):
+			_grabbed_body = col;
+			_grabbed_body.grab();
 		if(col is Interactable):
 			col.interact();
 	

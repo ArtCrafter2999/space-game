@@ -1,6 +1,6 @@
 @tool
-extends GrabBody
-class_name GrabRigidBody
+extends Grabbable
+class_name GrabbableRigidBody
 
 @export var body: RigidBody3D:
 	get: 
@@ -20,7 +20,12 @@ var _prev_colision_mask: int
 	
 func _ready() -> void:
 	if(body == null):
-		body = $"."
+		var parent = get_parent();
+		assert(parent is RigidBody3D, 
+			"%s: Either parent should be RigidBody3D or body should be set" %
+			name
+		)
+		body = parent as RigidBody3D;
 	_prev_angular_damp = body.angular_damp
 	_prev_colision_layer = body.collision_layer
 	_prev_colision_mask = body.collision_mask
@@ -57,11 +62,15 @@ func get_mass() -> float:
 	
 func _enter_tree() -> void:
 	if Engine.is_editor_hint():
+		var parent = get_parent();
+		var selfRigidBody = self
+		if selfRigidBody is RigidBody3D:
+			body = selfRigidBody;
+		if(parent is RigidBody3D):
+			body = parent;
 		update_configuration_warnings()
 
 func _get_configuration_warnings() -> PackedStringArray:
-	if(body): return [];
-	var rigidSelf = self
-	if(rigidSelf is not RigidBody3D):
-		return ["GrabRigidBody expects to be of RigidBody type or body is set"]
+	if not body:
+		return ["Either parent should be RigidBody3D or body should be set"]
 	return []

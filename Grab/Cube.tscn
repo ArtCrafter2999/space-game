@@ -1,7 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnia31i2o3o0h"]
+[gd_scene load_steps=6 format=3 uid="uid://bnia31i2o3o0h"]
 
-[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabRigidBody.gd" id="1_3an4s"]
-[ext_resource type="Script" uid="uid://r0sy1477baeg" path="res://Grab/Grabable.gd" id="1_6ljd2"]
+[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="1_3an4s"]
 [ext_resource type="Texture2D" uid="uid://eacfiwwv7f3f" path="res://addons/kenney_prototype_textures/purple/texture_08.png" id="2_lplop"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxk7j"]
@@ -14,10 +13,8 @@ size = Vector3(0.4, 0.4, 0.4)
 [sub_resource type="BoxShape3D" id="BoxShape3D_oa6wj"]
 size = Vector3(0.4, 0.4, 0.4)
 
-[node name="Cube" type="RigidBody3D" node_paths=PackedStringArray("body")]
+[node name="Cube" type="RigidBody3D"]
 collision_mask = 7
-script = ExtResource("1_3an4s")
-body = NodePath(".")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_fxk7j")
@@ -26,11 +23,12 @@ mesh = SubResource("BoxMesh_gmb5l")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_oa6wj")
 
-[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("grab_object")]
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("body")]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("1_6ljd2")
-grab_object = NodePath("..")
+script = ExtResource("1_3an4s")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_oa6wj")

@@ -1,9 +1,9 @@
-extends GrabRigidBody
-@onready var door: GrabRigidBody = $Door
+extends RigidBody3D
+@onready var door: GrabbableRigidBody = $Door/Grabbable
 var _grabbed = false;
 var door_locked = true;
 @onready var lock_joint: PinJoint3D = $LockJoint
-@onready var plug: GrabRigidBody = $Plug
+@onready var plug: Plug = $Plug
 @onready var lights: OmniLight3D = $OmniLight3D
 
 func _ready() -> void:
@@ -12,41 +12,39 @@ func _ready() -> void:
 	
 func _handle_door_grab():
 	if(_grabbed): return
-	body.freeze = true;
+	freeze = true;
 	door_locked = false;
 
 func _handle_door_release():
 	if(_grabbed): return
-	body.freeze = false;
+	freeze = false;
 	
 func grab():
-	super.grab();
 	_grabbed = true;
 	door.grab();
 	
 func release():
-	super.release();
 	_grabbed = false;
 	door.release();
 
 func _physics_process(delta: float) -> void:
 	#print(floor(rad_to_deg(door.rotation.y)))
-	var door_rotation = floor(rad_to_deg(door.rotation.y));
-	if(door_rotation > -2 && door_rotation < 20 && !body.freeze):
+	var door_rotation = floor(rad_to_deg(door.body.rotation.y));
+	if(door_rotation > -2 && door_rotation < 20 && !freeze):
 		door_locked = true;
 	if(door_locked):
 		door.body.collision_layer = 0
 		door.body.collision_mask = 0
-		lock_joint.node_a = body.get_path();
-		lock_joint.node_b = door.get_path();
+		lock_joint.node_a = get_path();
+		lock_joint.node_b = door.body.get_path();
 	else:
-		if(!body.freeze):
-			door.body.collision_layer = body.collision_layer
-			door.body.collision_mask = body.collision_mask
+		if(!freeze):
+			door.body.collision_layer = collision_layer
+			door.body.collision_mask = collision_mask
 		lock_joint.node_a = "";
 		lock_joint.node_b = "";
 	
-	if not door_locked and door_rotation < -3 or door_rotation > 10:
+	if not door_locked and (door_rotation < -3 or door_rotation > 10):
 		lights.visible = true;
 	else:
 		lights.visible = false;

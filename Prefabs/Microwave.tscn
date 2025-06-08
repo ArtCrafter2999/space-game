@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://vlyjwnu5k6jd"]
+[gd_scene load_steps=16 format=3 uid="uid://vlyjwnu5k6jd"]
 
-[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabRigidBody.gd" id="1_6kyr4"]
+[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="1_6kyr4"]
 [ext_resource type="Script" uid="uid://c5j4j5njaehms" path="res://Prefabs/Microwave.gd" id="1_bhc4q"]
-[ext_resource type="Script" uid="uid://r0sy1477baeg" path="res://Grab/Grabable.gd" id="2_htg57"]
 [ext_resource type="PackedScene" uid="uid://deni4dosbtepm" path="res://Rope/RopeEnd.tscn" id="2_pkpde"]
 [ext_resource type="PackedScene" uid="uid://ca8qrqsoc4s41" path="res://Plug/Plug.tscn" id="3_5cmua"]
 [ext_resource type="Texture2D" uid="uid://kj2rkd2syj8s" path="res://addons/kenney_prototype_textures/orange/texture_08.png" id="3_si275"]
@@ -35,15 +34,13 @@ size = Vector3(0.1, 0.5, 0.96)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ydckq"]
 size = Vector3(0.1, 0.5, 0.96)
 
-[node name="Microwave" type="RigidBody3D" node_paths=PackedStringArray("body")]
+[node name="Microwave" type="RigidBody3D"]
 collision_mask = 7
 mass = 18.0
 physics_material_override = SubResource("PhysicsMaterial_22c3n")
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0)
 script = ExtResource("1_bhc4q")
-body = NodePath(".")
-grab_strengh_multiplier = 6.0
 
 [node name="Wire" type="Node3D" parent="." node_paths=PackedStringArray("end_a", "end_b")]
 script = ExtResource("7_po6t6")
@@ -78,13 +75,14 @@ node_a = NodePath("..")
 node_b = NodePath("../Door")
 exclude_nodes_from_collision = false
 
-[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("grab_object")]
+[node name="Grabbable" type="Area3D" parent="." node_paths=PackedStringArray("body")]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("2_htg57")
-grab_object = NodePath("..")
+script = ExtResource("1_6kyr4")
+body = NodePath("..")
+grab_strengh_multiplier = 6.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grabbable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
 shape = SubResource("BoxShape3D_de8gq")
 
@@ -98,15 +96,13 @@ material_override = SubResource("StandardMaterial3D_g70gp")
 mesh = SubResource("BoxMesh_udgi6")
 skeleton = NodePath("")
 
-[node name="Door" type="RigidBody3D" parent="." node_paths=PackedStringArray("body")]
+[node name="Door" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.476, 0, 0.5)
 collision_mask = 7
 collision_priority = 2.0
 mass = 0.3
 gravity_scale = 0.0
 center_of_mass_mode = 1
-script = ExtResource("1_6kyr4")
-body = NodePath(".")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
@@ -117,16 +113,20 @@ mesh = SubResource("BoxMesh_xmg8j")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_ydckq")
 
-[node name="GrabArea" type="Area3D" parent="Door" node_paths=PackedStringArray("grab_object")]
+[node name="Grabbable" type="Area3D" parent="Door" node_paths=PackedStringArray("body")]
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("2_htg57")
-grab_object = NodePath("..")
+script = ExtResource("1_6kyr4")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/GrabArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Grabbable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 shape = SubResource("BoxShape3D_ydckq")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.43, 0, 0)
 light_color = Color(1, 0.666667, 0, 1)
+
+[connection signal="on_grab" from="Grabbable" to="." method="grab"]
+[connection signal="on_release" from="Grabbable" to="." method="release"]

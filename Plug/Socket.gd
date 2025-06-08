@@ -19,17 +19,17 @@ func _physics_process(delta: float) -> void:
 			cool_down -= delta;
 		return;
 	
-	plug.body.global_position = plug_place.global_position;
-	plug.body.global_rotation = plug_place.global_rotation
+	plug.global_position = plug_place.global_position;
+	plug.global_rotation = plug_place.global_rotation
 
 func plug_in(new_plug: Plug):
 	plug = new_plug;
 	plug.socket = self;
-	plug.release();
-	plug.body.freeze = true;
+	plug.grabbable.release();
+	plug.freeze = true;
 
 func plug_out():
 	cool_down = 1;
-	plug.body.freeze = false;
+	plug.freeze = false;
 	plug.socket = null;
 	plug = null;

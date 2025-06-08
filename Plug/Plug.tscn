@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d2k0po58xv0ib" path="res://Plug/Plug.gd" id="2_gexk8"]
 [ext_resource type="Texture2D" uid="uid://dm5ufhdwlfhyp" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="2_purq6"]
-[ext_resource type="Script" uid="uid://r0sy1477baeg" path="res://Grab/Grabable.gd" id="2_qubd3"]
 [ext_resource type="Script" uid="uid://b6m3xkuagsug1" path="res://Plug/PlugArea.gd" id="3_oqdqx"]
+[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="4_oqdqx"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mt7li"]
 albedo_texture = ExtResource("2_purq6")
@@ -18,11 +18,10 @@ size = Vector3(0.15, 0.15, 0.15)
 [sub_resource type="BoxShape3D" id="BoxShape3D_067m0"]
 size = Vector3(0.2, 0.2, 0.2)
 
-[node name="Plug" type="RigidBody3D" node_paths=PackedStringArray("body")]
+[node name="Plug" type="RigidBody3D"]
 collision_mask = 7
 mass = 0.2
 script = ExtResource("2_gexk8")
-body = NodePath(".")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_mt7li")
@@ -38,11 +37,17 @@ plug = NodePath("..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlugArea"]
 shape = SubResource("BoxShape3D_xb8uv")
 
-[node name="GrabbableArea" type="Area3D" parent="." node_paths=PackedStringArray("grab_object")]
+[node name="Grabbable" type="Area3D" parent="." node_paths=PackedStringArray("body")]
+unique_name_in_owner = true
 collision_layer = 8
 collision_mask = 0
-script = ExtResource("2_qubd3")
-grab_object = NodePath("..")
+script = ExtResource("4_oqdqx")
+body = NodePath("..")
+grab_strengh_multiplier = 0.2
+grabbed_angular_damp = 6.0
+metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GrabbableArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grabbable"]
 shape = SubResource("BoxShape3D_067m0")
+
+[connection signal="on_grab" from="Grabbable" to="." method="unplug"]
