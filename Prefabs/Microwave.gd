@@ -44,7 +44,9 @@ func _physics_process(delta: float) -> void:
 		lock_joint.node_a = "";
 		lock_joint.node_b = "";
 	
-	if not door_locked and (door_rotation < -3 or door_rotation > 10):
+	if not door_locked and \
+	 (door_rotation < -3 or door_rotation > 10) and \
+	 plug.receive_data("electricity"):
 		lights.visible = true;
 	else:
 		lights.visible = false;

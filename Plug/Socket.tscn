@@ -15,6 +15,9 @@ size = Vector3(0.2, 0.2, 0.15)
 
 [node name="Socket" type="Area3D" node_paths=PackedStringArray("plug_place")]
 script = ExtResource("1_ud2eo")
+data = {
+"electricity": true
+}
 plug_place = NodePath("Marker3D")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

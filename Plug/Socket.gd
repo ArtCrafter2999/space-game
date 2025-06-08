@@ -2,9 +2,13 @@ extends Area3D
 class_name Socket
 
 @export var type = "electrical"
+@export var data: Dictionary = {}
 @export var plug_place: Node3D
 var plug: Plug = null
 var cool_down : float;
+var received_data: Dictionary:
+	get:
+		return plug.data if plug else null
 
 func _on_area_entered(area: Area3D) -> void:
 	if not plug and \
@@ -33,3 +37,8 @@ func plug_out():
 	plug.freeze = false;
 	plug.socket = null;
 	plug = null;
+
+func receive_data(key: String):
+	if not plug:
+		return null;
+	return plug.data.get(key);
