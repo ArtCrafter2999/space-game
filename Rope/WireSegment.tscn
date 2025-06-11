@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgh3w365a5osi"]
+
+[ext_resource type="Script" uid="uid://coeh3k0hcit2" path="res://Rope/RopeSegment.gd" id="1_834uy"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cvlwc"]
+height = 0.17
+radius = 0.04
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_torm3"]
+top_radius = 0.02
+bottom_radius = 0.02
+height = 0.17
+
+[node name="RopeSegment" type="RigidBody3D" node_paths=PackedStringArray("joint", "body")]
+collision_mask = 7
+collision_priority = 2.0
+mass = 0.001
+script = ExtResource("1_834uy")
+length = 0.1
+joint = NodePath("PinJoint3D")
+body = NodePath(".")
+
+[node name="PinJoint3D" type="JoltPinJoint3D" parent="."]
+solver_position_iterations = 50
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.05)
+shape = SubResource("CylinderShape3D_cvlwc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.05)
+mesh = SubResource("CylinderMesh_torm3")

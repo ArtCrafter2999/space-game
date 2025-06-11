@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c80eauowhex61"]
+
+[ext_resource type="PackedScene" uid="uid://c2jvgq5j7ebc3" path="res://Player/Player.tscn" id="2_hqbn7"]
+
+[node name="TestShipScene" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("2_hqbn7")]
+visible = false

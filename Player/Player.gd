@@ -137,9 +137,6 @@ func _physics_process(delta):
 	# Присткорення або сповільнення в залежності від input. Не сповільнюється в невагомості
 	var accel_rate = acceleration if target_movement.length() > 0.01 else (0 if gravity_limit else deceleration);
 	var movement : Vector3 = speed_dif * accel_rate;
-	#print(format_vector3(Vector3.ONE - transform.basis.y), " ", (Vector3.ONE - transform.basis.y).length())
-	#print(format_vector3(speed_dif))
-	#print(format_vector3(gravity_listener.calculate_gravity()))
 	apply_central_force(movement)
 
 func format_vector3(v: Vector3) -> String:

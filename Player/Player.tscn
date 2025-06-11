@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2jvgq5j7ebc3"]
+[gd_scene load_steps=16 format=3 uid="uid://c2jvgq5j7ebc3"]
 
 [ext_resource type="Script" uid="uid://cj77etr5i62ei" path="res://Player/Player.gd" id="1_ov2po"]
 [ext_resource type="Script" uid="uid://by5ju0njlbgdl" path="res://Player/Grab.gd" id="2_oh578"]
 [ext_resource type="Script" uid="uid://c7cxbf6kkp0bs" path="res://Gravity/GravityListener.gd" id="2_xpxqn"]
 [ext_resource type="Script" uid="uid://cuyyeyb83qhkn" path="res://Player/Cameras.gd" id="3_ddoul"]
+[ext_resource type="Script" uid="uid://cse5p1f85v7sq" path="res://Player/SoundController.gd" id="5_8g4oa"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ofuvd"]
 friction = 0.0
@@ -18,7 +19,17 @@ height = 3.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_gmaph"]
 height = 0.1
-radius = 0.45
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_8g4oa"]
+room_size = 0.0
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_6ysni"]
+room_size = 0.5
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_vlldt"]
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_s1rgi"]
+pitch_scale = 0.3
 
 [sub_resource type="BoxMesh" id="BoxMesh_kmg4d"]
 size = Vector3(0.1, 0.1, 1)
@@ -54,6 +65,19 @@ collision_mask = 5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="onFloorArea"]
 shape = SubResource("CylinderShape3D_gmaph")
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("gravity_listener")]
+script = ExtResource("5_8g4oa")
+gravity_listener = NodePath("../GravityListener")
+effects = Array[Dictionary]([{
+"from": SubResource("AudioEffectReverb_8g4oa"),
+"keys": ["room_size"],
+"to": SubResource("AudioEffectReverb_6ysni")
+}, {
+"from": SubResource("AudioEffectPitchShift_vlldt"),
+"keys": ["pitch_scale"],
+"to": SubResource("AudioEffectPitchShift_s1rgi")
+}])
 
 [node name="Neck" type="Node3D" parent="."]
 

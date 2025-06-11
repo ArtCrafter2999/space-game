@@ -1,0 +1,27 @@
+[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://bnibxrkxqt7jh"]
+
+[sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_6lllf"]
+resource_name = "PitchShift"
+pitch_scale = 0.3
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_6lllf"]
+resource_name = "Reverb"
+room_size = 0.5
+
+[resource]
+bus/1/name = &"Air"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 0.0
+bus/1/send = &"Master"
+bus/2/name = &"Space"
+bus/2/solo = false
+bus/2/mute = false
+bus/2/bypass_fx = false
+bus/2/volume_db = 0.0
+bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectPitchShift_6lllf")
+bus/2/effect/0/enabled = true
+bus/2/effect/1/effect = SubResource("AudioEffectReverb_6lllf")
+bus/2/effect/1/enabled = true

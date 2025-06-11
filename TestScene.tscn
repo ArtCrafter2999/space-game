@@ -1,7 +1,8 @@
-[gd_scene load_steps=41 format=3 uid="uid://cfnj4sjd2hyk2"]
+[gd_scene load_steps=46 format=3 uid="uid://cfnj4sjd2hyk2"]
 
 [ext_resource type="Script" uid="uid://cdg2jtdcqkij7" path="res://AntiGravityRoom.gd" id="1_3qqfy"]
 [ext_resource type="PackedScene" uid="uid://c2jvgq5j7ebc3" path="res://Player/Player.tscn" id="1_ke3s1"]
+[ext_resource type="AudioStream" uid="uid://sq42gfi2kj6d" path="res://Music/Fausto Papetti - Wonderland by Night.mp3" id="2_8bg8d"]
 [ext_resource type="Texture2D" uid="uid://c31lfxe6vyq02" path="res://addons/kenney_prototype_textures/dark/texture_01.png" id="2_hx0yk"]
 [ext_resource type="Shader" uid="uid://cltajo14l6k6t" path="res://shaders/stars.gdshader" id="2_i67pj"]
 [ext_resource type="Script" uid="uid://buji68gvseklw" path="res://Gravity/GravityBroadcast.gd" id="3_c73p6"]
@@ -17,6 +18,8 @@
 [ext_resource type="Script" uid="uid://ckwxpbc13xs16" path="res://Door/Door.gd" id="13_o3732"]
 [ext_resource type="Texture2D" uid="uid://d3cbqsfmnldpv" path="res://addons/kenney_prototype_textures/red/texture_10.png" id="14_ikdc7"]
 [ext_resource type="PackedScene" uid="uid://chhtyhruwcfkq" path="res://Button/Button.tscn" id="16_xbkab"]
+[ext_resource type="Script" uid="uid://c7cxbf6kkp0bs" path="res://Gravity/GravityListener.gd" id="18_asirl"]
+[ext_resource type="Script" uid="uid://c3sl0tj7go3ut" path="res://Audio/Scripts/Audio.gd" id="18_f5py1"]
 [ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="18_qpw16"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i67pj"]
@@ -31,15 +34,20 @@ shader_parameter/layer_scale = 20.0
 shader_parameter/layer_scale_step = 10.0
 shader_parameter/layers_count = 3
 
-[sub_resource type="Sky" id="Sky_i67pj"]
+[sub_resource type="Sky" id="Sky_qpw16"]
 sky_material = SubResource("ShaderMaterial_i67pj")
 
 [sub_resource type="Environment" id="Environment_eiba1"]
 background_mode = 2
-sky = SubResource("Sky_i67pj")
+sky = SubResource("Sky_qpw16")
 ambient_light_source = 2
 ambient_light_color = Color(0, 0, 0.141176, 1)
 tonemap_mode = 2
+glow_enabled = true
+glow_levels/2 = 1.0
+glow_levels/4 = 0.5
+glow_levels/5 = 0.2
+glow_blend_mode = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1f4xa"]
 albedo_texture = ExtResource("2_hx0yk")
@@ -107,12 +115,15 @@ size = Vector3(0.3, 0.3, 0.3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_f5py1"]
 size = Vector3(0.4, 0.4, 0.4)
 
-[node name="TestScene" type="Node3D"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_asirl"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.499169, 0.0288195, 0, 0.057639, 0.998338, -0.5, 0.864586, -0.0499168, 0, 0, 0)
-visible = false
-shadow_enabled = true
+[sub_resource type="BoxMesh" id="BoxMesh_8bg8d"]
+material = SubResource("StandardMaterial3D_asirl")
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="TestScene" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_eiba1")
@@ -134,6 +145,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00618553, -9.53674e-07, 0.0
 collision_layer = 0
 collision_mask = 7
 gravity_space_override = 1
+audio_bus_override = true
+audio_bus_name = &"Space"
 script = ExtResource("3_c73p6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/ShipGravity"]
@@ -431,6 +444,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63204, 2.09245, 5.005)
 [node name="Button3" parent="Plane/AntiGravityRoom" instance=ExtResource("16_xbkab")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05118, 2.07892, 5.005)
 
+[node name="Button4" parent="Plane/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.35749, 2, 3.99468)
+
 [node name="lantern" type="RigidBody3D" parent="Plane"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.331837, 0.726031, -2.95452)
 collision_mask = 7
@@ -443,6 +459,9 @@ shape = SubResource("BoxShape3D_8bg8d")
 shadow_enabled = true
 
 [node name="Area3D" type="Area3D" parent="Plane/lantern" node_paths=PackedStringArray("body")]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
 script = ExtResource("18_qpw16")
 body = NodePath("..")
 metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
@@ -450,8 +469,28 @@ metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/lantern/Area3D"]
 shape = SubResource("BoxShape3D_f5py1")
 
+[node name="Area3D2" type="Area3D" parent="Plane/lantern"]
+script = ExtResource("18_asirl")
+metadata/_custom_type_script = "uid://c7cxbf6kkp0bs"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane/lantern/Area3D2"]
+shape = SubResource("BoxShape3D_f5py1")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="Plane/lantern" node_paths=PackedStringArray("gravity_listener")]
+stream = ExtResource("2_8bg8d")
+volume_db = -22.0
+autoplay = true
+max_distance = 10.0
+bus = &"Air"
+script = ExtResource("18_f5py1")
+gravity_listener = NodePath("../Area3D2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane/lantern"]
+mesh = SubResource("BoxMesh_8bg8d")
+
 [node name="Player" parent="." instance=ExtResource("1_ke3s1")]
 
 [connection signal="on_click" from="Plane/AntiGravityRoom/Button" to="Plane/AntiGravityRoom/CombinedDoor" method="switch"]
 [connection signal="on_click" from="Plane/AntiGravityRoom/Button2" to="Plane/AntiGravityRoom/CombinedDoor" method="switch"]
 [connection signal="on_click" from="Plane/AntiGravityRoom/Button3" to="Plane/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane/AntiGravityRoom/Button4" to="Plane/AntiGravityRoom" method="switch_gravity_room"]

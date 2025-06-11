@@ -21,12 +21,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		_rotate += rotate_mult * _wheel_axis;
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("Interact"):
+	if Input.is_action_just_pressed("Interact") or \
+	 Input.is_action_just_pressed("Grab"):
 		var col: Object = interact_ray_cast.get_collider()
-		if(col is Grabbable):
+		if Input.is_action_just_pressed("Grab") and \
+		 col is Grabbable:
 			_grabbed_body = col;
 			_grabbed_body.grab();
-		if(col is Interactable):
+		if Input.is_action_just_pressed("Interact") and \
+		 col is Interactable:
 			col.interact();
 	
 	if !_grabbed_body: return;
@@ -34,10 +37,10 @@ func _physics_process(delta: float) -> void:
 	if _rotate != 0:
 		_grabbed_body.object_rotation.y += _rotate;
 		_rotate = 0
-	if Input.is_action_pressed("Interact"):
+	if Input.is_action_pressed("Grab"):
 		#_grabbed_body.object_position = (grab_marker.global_position - _grabbed_body.global_position) * 10 / _grabbed_body.get_mass();
 		_grabbed_body.object_position = grab_marker.global_position
-	if Input.is_action_just_released("Interact") || Input.is_action_just_pressed("Throw"): 
+	if Input.is_action_just_released("Grab") || Input.is_action_just_pressed("Throw"): 
 		_grabbed_body.release()
 		if Input.is_action_just_pressed("Throw"):
 			_grabbed_body.throw((grab_marker.global_position - global_position).normalized() * throw_strengh / _grabbed_body.get_mass())
