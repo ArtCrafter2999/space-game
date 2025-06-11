@@ -18,6 +18,7 @@ collision_mask = 7
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_fxk7j")
+gi_mode = 2
 mesh = SubResource("BoxMesh_gmb5l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -25,6 +25,7 @@ script = ExtResource("2_gexk8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_mt7li")
+gi_mode = 2
 mesh = SubResource("BoxMesh_i5a68")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

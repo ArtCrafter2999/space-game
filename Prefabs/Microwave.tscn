@@ -19,6 +19,7 @@ size = Vector3(0.95, 0.6, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g70gp"]
 albedo_texture = ExtResource("3_si275")
+metallic_specular = 0.0
 uv1_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_udgi6"]
@@ -94,6 +95,7 @@ shape = SubResource("BoxShape3D_0vs2v")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
 material_override = SubResource("StandardMaterial3D_g70gp")
+gi_mode = 2
 mesh = SubResource("BoxMesh_udgi6")
 skeleton = NodePath("")
 
@@ -108,6 +110,7 @@ center_of_mass_mode = 1
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Door"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
 material_override = SubResource("StandardMaterial3D_ab8v2")
+gi_mode = 2
 mesh = SubResource("BoxMesh_xmg8j")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Door"]
