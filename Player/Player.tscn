@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c2jvgq5j7ebc3"]
+[gd_scene load_steps=22 format=3 uid="uid://c2jvgq5j7ebc3"]
 
 [ext_resource type="Script" uid="uid://cj77etr5i62ei" path="res://Player/Player.gd" id="1_ov2po"]
 [ext_resource type="Script" uid="uid://by5ju0njlbgdl" path="res://Player/Grab.gd" id="2_oh578"]
@@ -40,30 +40,35 @@ pitch_scale = 0.3
 size = Vector3(0.1, 0.1, 1)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8g4oa"]
-properties/0/path = NodePath(".:position")
+properties/0/path = NodePath(".:rotation")
 properties/0/spawn = true
 properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
+properties/1/path = NodePath("Neck:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-properties/2/path = NodePath("Neck/SubNeck/Interaction/GrabMarker:position")
+properties/2/path = NodePath("Neck/SubNeck:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
-properties/3/path = NodePath("Neck:rotation")
+properties/3/path = NodePath("Neck/SubNeck/Interaction/InteractRayCast:position")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("Neck/SubNeck:rotation")
+properties/4/path = NodePath("Neck/SubNeck/Interaction/InteractRayCast:rotation")
 properties/4/spawn = true
 properties/4/replication_mode = 1
-properties/5/path = NodePath("Neck/SubNeck/Interaction/InteractRayCast:position")
+properties/5/path = NodePath("Neck/Head:rotation")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath("Neck/SubNeck/Interaction/InteractRayCast:rotation")
+properties/6/path = NodePath(".:linear_velocity")
 properties/6/spawn = true
 properties/6/replication_mode = 1
-properties/7/path = NodePath("Neck/Head:rotation")
+properties/7/path = NodePath(".:position")
 properties/7/spawn = true
 properties/7/replication_mode = 1
+properties/8/path = NodePath("Neck/SubNeck/Interaction/GrabMarker:position")
+properties/8/spawn = true
+properties/8/replication_mode = 1
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_s1rgi"]
 
 [node name="Player" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
@@ -187,3 +192,10 @@ mouse_filter = 1
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_8g4oa")
+visibility_update_mode = 1
+
+[node name="FairlyFrequentSyncronizer" type="MultiplayerSynchronizer" parent="MultiplayerSynchronizer"]
+root_path = NodePath("../..")
+replication_interval = 0.1
+delta_interval = 0.1
+replication_config = SubResource("SceneReplicationConfig_s1rgi")

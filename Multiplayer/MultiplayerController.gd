@@ -61,7 +61,7 @@ func _on_host_button_down() -> void:
 		print("cannot host: ", error)
 		return;
 	
-	#peer.host.compress(ENetConnection.COMPRESS_RANGE_CODER)
+	peer.host.compress(ENetConnection.COMPRESS_ZLIB)
 	
 	multiplayer.multiplayer_peer = peer;
 	
@@ -74,7 +74,7 @@ func _on_join_button_down() -> void:
 	peer = ENetMultiplayerPeer.new();
 	peer.create_client(ip_input.text, port);
 	
-	#peer.host.compress(ENetConnection.COMPRESS_RANGE_CODER);
+	peer.host.compress(ENetConnection.COMPRESS_ZLIB);
 	
 	multiplayer.multiplayer_peer = peer;
 

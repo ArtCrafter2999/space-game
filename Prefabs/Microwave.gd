@@ -18,7 +18,7 @@ func _handle_door_grab():
 func _handle_door_release():
 	if(_grabbed): return
 	freeze = false;
-	
+
 func grab():
 	_grabbed = true;
 	if multiplayer.is_server():

@@ -11,8 +11,10 @@ class_name GrabbableRigidBody
 			update_configuration_warnings();
 @export var grab_strengh_multiplier: float = 1
 @export_range(0, 100) var grabbed_angular_damp: float = 3
-@export_flags_3d_physics var grabbed_colision_layer: int = 4
-@export_flags_3d_physics var grabbed_colision_mask: int = 5
+@export_flags_3d_physics var grabbed_self_colision_layer: int = 4
+@export_flags_3d_physics var grabbed_self_colision_mask: int = 5
+@export_flags_3d_physics var grabbed_other_colision_layer: int = 1
+@export_flags_3d_physics var grabbed_other_colision_mask: int = 7
 
 var _prev_angular_damp: float
 var _prev_colision_layer: int
@@ -33,44 +35,49 @@ func _ready() -> void:
 func _get_object_rotation() -> Vector3:
 	return body.angular_velocity;
 
-@rpc("any_peer", "call_local")
 func _set_object_rotation(value: Vector3):
+	_rpc_set_object_rotation.rpc(value)
+@rpc("any_peer", "call_local")
+func _rpc_set_object_rotation(value: Vector3):
 	body.angular_velocity = value;
-	if not multiplayer.is_server():
-		_set_object_rotation.rpc_id(1, value);
 
-@rpc("any_peer", "call_local")
 func _set_object_position(value: Vector3):
-	body.linear_velocity = (value - body.global_position) * 10 * grab_strengh_multiplier / get_mass();
-	if not multiplayer.is_server():
-		_set_object_position.rpc_id(1, value);
-
+	_rpc_set_object_position.rpc(value)
 @rpc("any_peer", "call_local")
-func grab():
-	super.grab();
+func _rpc_set_object_position(value: Vector3):
+	body.linear_velocity = (value - body.global_position) * 10 * grab_strengh_multiplier / get_mass();
+
+func grab(playerId: int = multiplayer.get_unique_id()):
+	_rpc_grab.rpc(playerId);
+@rpc("any_peer", "call_local")
+func _rpc_grab(playerId: int = multiplayer.get_unique_id()):
+	super.grab(playerId);
 	_prev_angular_damp = body.angular_damp
 	_prev_colision_layer = body.collision_layer
 	_prev_colision_mask = body.collision_mask
 	body.angular_damp = grabbed_angular_damp
-	body.collision_layer = grabbed_colision_layer
-	body.collision_mask = grabbed_colision_mask
-	if not multiplayer.is_server():
-		grab.rpc_id(1);
+	if playerId == multiplayer.get_unique_id():
+		body.collision_layer = grabbed_self_colision_layer
+		body.collision_mask = grabbed_self_colision_mask
+	else:
+		body.collision_layer = grabbed_other_colision_layer
+		body.collision_mask = grabbed_other_colision_mask
+		
 
-@rpc("any_peer", "call_local")
 func release():
+	_rpc_release.rpc();
+@rpc("any_peer", "call_local")
+func _rpc_release():
 	super.release();
 	body.angular_damp = _prev_angular_damp
 	body.collision_layer = _prev_colision_layer
 	body.collision_mask = _prev_colision_mask
-	if not multiplayer.is_server():
-		release.rpc_id(1);
 
-@rpc("any_peer", "call_local")
 func throw(impulse: Vector3):
+	_rpc_throw.rpc(impulse)
+@rpc("any_peer", "call_local")
+func _rpc_throw(impulse: Vector3):
 	body.linear_velocity = impulse * grab_strengh_multiplier;
-	if not multiplayer.is_server():
-		throw.rpc_id(1, impulse);
 
 func get_mass() -> float:
 	return body.mass / max(body.gravity_scale, 0.2);

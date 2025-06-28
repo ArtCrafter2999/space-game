@@ -20,6 +20,12 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
+properties/2/path = NodePath(".:linear_velocity")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:angular_velocity")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Cube" type="RigidBody3D"]
 collision_mask = 7
@@ -37,6 +43,10 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_3an4s")
 body = NodePath("..")
+grabbed_self_colision_layer = null
+grabbed_self_colision_mask = null
+grabbed_other_colision_layer = null
+grabbed_other_colision_mask = null
 metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
@@ -44,3 +54,4 @@ shape = SubResource("BoxShape3D_oa6wj")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rfa4p")
+visibility_update_mode = 1

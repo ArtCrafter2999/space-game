@@ -13,25 +13,15 @@ var _grabbed_body: Grabbable = null:
 	get: 
 		return _grabbed_body;
 
+func setGrabbedBody(value: Node3D):
+	_rpc_setGrabbedBody.rpc(value.get_path() if value else null)
 @rpc("any_peer", "call_local")
-func setGrabbedBody(value):
-	if value is Node3D:
-		_grabbed_body = value;
-		if not multiplayer.is_server():
-			setGrabbedBody.rpc_id(1, value.get_path())
-	else:
-		var object = null;
-		if value:
-			object = get_node(value)
-		_grabbed_body = object;
-		if not multiplayer.is_server():
-			setGrabbedBody.rpc_id(1, value)
+func _rpc_setGrabbedBody(value):
+	var object = null;
+	if value:
+		object = get_node(value)
+	_grabbed_body = object;
 
-@rpc("any_peer") # This RPC will be called by the client and executed on the server
-func setGrabbedBody_rpc(object_path_str: String):
-	var object = get_node(object_path_str)
-	print(multiplayer.get_unique_id(), " set grabbed body ", object)
-	_grabbed_body = object
 	
 var _rotate = 0;
 
@@ -55,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Grab") and \
 		 col is Grabbable:
 			setGrabbedBody(col);
-			_grabbed_body.grab();
+			_grabbed_body.grab(multiplayer.get_unique_id());
 		if Input.is_action_just_pressed("Interact") and \
 		 col is Interactable:
 			col.interact();

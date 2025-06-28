@@ -21,6 +21,9 @@ func _ready() -> void:
 	multiplayer_synchronizer.set_multiplayer_authority(int(name))
 	if multiplayer_synchronizer.is_multiplayer_authority():
 		camera.current = true;
+	else:
+		collision_layer = 1;
+		collision_mask = 7;
 	
 func handle_gravity_changed(gravity: Vector3):
 	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
@@ -98,10 +101,14 @@ func _process(delta: float) -> void:
 			head_x_rotation = 0
 
 func _physics_process(delta):
-	if multiplayer_synchronizer.is_multiplayer_authority() and not multiplayer.is_server():
-		print(position)
-	
-	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
+	#if not multiplayer_synchronizer.is_multiplayer_authority(): 
+		#if multiplayer.get_unique_id() != 1 and GameManager.players[multiplayer.get_unique_id()].name == "ClientA":
+				#print("velocity: ", linear_velocity, " ", snapped(linear_velocity, Vector3.ONE * 0.001) == Vector3.ZERO);
+		#if snapped(linear_velocity, Vector3.ONE * 0.001) == Vector3.ZERO:
+			#position = snapped(position, Vector3.ONE * 0.001);
+			#if multiplayer.get_unique_id() != 1 and GameManager.players[multiplayer.get_unique_id()].name == "ClientA":
+				#print("position: ", position);
+		#return;
 	gravity_length = gravity_listener.calculate_gravity().length()
 	
 	var direction = Vector3.ZERO;
@@ -109,28 +116,29 @@ func _physics_process(delta):
 	var no_gravity = gravity_length < 1
 	var gravity_limit = no_gravity || gravity_length > 18
 	rotate_to_gravity()
-	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		if(_neck_y_rotation):
-			global_rotate(transform.basis.y, _y_rotation);
-			neck.rotate_y(-_y_rotation);
-			_y_rotation = 0;
-		
-		if body_x_rotation:
-			if gravity_limit: 
-				global_rotate(transform.basis.x, sub_neck.rotation.x);
-				sub_neck.rotation.x = 0;
-			else:
-				global_rotate(transform.basis.x, body_x_rotation);
-				sub_neck.rotate_x(-body_x_rotation);
-			body_x_rotation = 0
-		
-		var input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
-		var side = transform.basis.x * input_dir.x
-		var forward = transform.basis.z * input_dir.y
-		direction = (side + forward).normalized()
-		var jump: Vector3 = Vector3.ZERO
-		if Input.is_action_just_pressed("Jump") and is_on_floor():
-			apply_central_impulse(jump_velocity * transform.basis.y)
+	if multiplayer_synchronizer.is_multiplayer_authority(): 
+		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
+			if(_neck_y_rotation):
+				global_rotate(transform.basis.y, _y_rotation);
+				neck.rotate_y(-_y_rotation);
+				_y_rotation = 0;
+			
+			if body_x_rotation:
+				if gravity_limit: 
+					global_rotate(transform.basis.x, sub_neck.rotation.x);
+					sub_neck.rotation.x = 0;
+				else:
+					global_rotate(transform.basis.x, body_x_rotation);
+					sub_neck.rotate_x(-body_x_rotation);
+				body_x_rotation = 0
+			
+			var input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
+			var side = transform.basis.x * input_dir.x
+			var forward = transform.basis.z * input_dir.y
+			direction = (side + forward).normalized()
+			var jump: Vector3 = Vector3.ZERO
+			if Input.is_action_just_pressed("Jump") and is_on_floor():
+				apply_central_impulse(jump_velocity * transform.basis.y)
 	
 	# Скоротити швидкість з якою переміщуюсь в невагомості
 	var opt_space_mult = space_multiplier if gravity_limit else 1

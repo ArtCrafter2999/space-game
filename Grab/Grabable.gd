@@ -28,7 +28,7 @@ func _get_object_position() -> Vector3:
 func _set_object_position(value: Vector3):
 	global_position = value;
 
-func grab():
+func grab(playerId: int = multiplayer.get_unique_id()):
 	on_grab.emit();
 	pass
 
