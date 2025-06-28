@@ -1,16 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2jvgq5j7ebc3"]
+[gd_scene load_steps=21 format=3 uid="uid://c2jvgq5j7ebc3"]
 
 [ext_resource type="Script" uid="uid://cj77etr5i62ei" path="res://Player/Player.gd" id="1_ov2po"]
 [ext_resource type="Script" uid="uid://by5ju0njlbgdl" path="res://Player/Grab.gd" id="2_oh578"]
+[ext_resource type="Script" uid="uid://b4evo83opeq5y" path="res://Player/BodyMesh.gd" id="2_s1rgi"]
 [ext_resource type="Script" uid="uid://c7cxbf6kkp0bs" path="res://Gravity/GravityListener.gd" id="2_xpxqn"]
 [ext_resource type="Script" uid="uid://cuyyeyb83qhkn" path="res://Player/Cameras.gd" id="3_ddoul"]
+[ext_resource type="Script" uid="uid://bu337ii1qa70y" path="res://Player/Head.gd" id="4_vlldt"]
 [ext_resource type="Script" uid="uid://cse5p1f85v7sq" path="res://Player/SoundController.gd" id="5_8g4oa"]
+[ext_resource type="Texture2D" uid="uid://cxornj0057y0j" path="res://icon.svg" id="6_6ysni"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ofuvd"]
 friction = 0.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bt4at"]
-height = 3.0
+height = 2.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_t5vjn"]
 
@@ -31,8 +34,36 @@ room_size = 0.5
 [sub_resource type="AudioEffectPitchShift" id="AudioEffectPitchShift_s1rgi"]
 pitch_scale = 0.3
 
+[sub_resource type="BoxMesh" id="BoxMesh_8g4oa"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_kmg4d"]
 size = Vector3(0.1, 0.1, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8g4oa"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Neck/SubNeck/Interaction/GrabMarker:position")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Neck:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Neck/SubNeck:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("Neck/SubNeck/Interaction/InteractRayCast:position")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("Neck/SubNeck/Interaction/InteractRayCast:rotation")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+properties/7/path = NodePath("Neck/Head:rotation")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [node name="Player" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
@@ -43,10 +74,11 @@ lock_rotation = true
 script = ExtResource("1_ov2po")
 metadata/_edit_group_ = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+[node name="BodyMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 gi_mode = 2
 mesh = SubResource("CapsuleMesh_bt4at")
+script = ExtResource("2_s1rgi")
 
 [node name="GravityListener" type="Area3D" parent="."]
 script = ExtResource("2_xpxqn")
@@ -66,7 +98,7 @@ collision_mask = 5
 [node name="CollisionShape3D" type="CollisionShape3D" parent="onFloorArea"]
 shape = SubResource("CylinderShape3D_gmaph")
 
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("gravity_listener")]
+[node name="SpaceAudio" type="Node" parent="." node_paths=PackedStringArray("gravity_listener")]
 script = ExtResource("5_8g4oa")
 gravity_listener = NodePath("../GravityListener")
 effects = Array[Dictionary]([{
@@ -80,6 +112,22 @@ effects = Array[Dictionary]([{
 }])
 
 [node name="Neck" type="Node3D" parent="."]
+
+[node name="Head" type="Node3D" parent="Neck"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+script = ExtResource("4_vlldt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Neck/Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_8g4oa")
+skeleton = NodePath("../../SubNeck")
+script = ExtResource("2_s1rgi")
+
+[node name="Sprite3D" type="Sprite3D" parent="Neck/Head/MeshInstance3D"]
+transform = Transform3D(-0.775, 0, -6.77527e-08, 0, 0.775, 0, 6.77527e-08, 0, -0.775, 0, 0, -0.51)
+shaded = true
+double_sided = false
+texture = ExtResource("6_6ysni")
 
 [node name="SubNeck" type="Node3D" parent="Neck"]
 script = ExtResource("3_ddoul")
@@ -104,10 +152,10 @@ mesh = SubResource("BoxMesh_kmg4d")
 
 [node name="Camera" type="Camera3D" parent="Neck/SubNeck"]
 unique_name_in_owner = true
-current = true
 fov = 80.0
 
 [node name="CameraBack" type="Camera3D" parent="Neck/SubNeck"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -135,3 +183,7 @@ offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
+replication_config = SubResource("SceneReplicationConfig_8g4oa")

@@ -13,11 +13,17 @@ class_name Player
 @onready var sub_neck: Node3D = $Neck/SubNeck
 @onready var on_floor_area: Area3D = $onFloorArea
 @onready var gravity_listener: GravityListener = $GravityListener
+@onready var multiplayer_synchronizer: MultiplayerSynchronizer = %"MultiplayerSynchronizer"
+@onready var camera: Camera3D = %Camera
 
 func _ready() -> void:
 	gravity_listener.gravity_changed.connect(handle_gravity_changed)
+	multiplayer_synchronizer.set_multiplayer_authority(int(name))
+	if multiplayer_synchronizer.is_multiplayer_authority():
+		camera.current = true;
 	
 func handle_gravity_changed(gravity: Vector3):
+	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	if(gravity.length() < 1):
 		global_rotate(transform.basis.x, neck.rotation.x)
 		neck.rotation.x = 0
@@ -27,7 +33,6 @@ func handle_gravity_changed(gravity: Vector3):
 		
 		_cross_product = current.cross(target).normalized();
 		_cp_angle = current.signed_angle_to(target, _cross_product);
-		#print("cross_product %s; angle %s" % [_cross_product, _cp_angle])
 
 var _esc: bool = true;
 var _neck_y_rotation = 0;
@@ -37,6 +42,7 @@ var head_x_rotation: float
 var body_x_rotation: float
 
 func _unhandled_input(event) -> void: 
+	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	if event is InputEventMouseButton && _esc:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_esc = false;
@@ -59,6 +65,7 @@ var _cp_angle: float = 0
 var _cp_angle_left: float = 0
 @export var gravity_rotation_speed = 1.5;
 func rotate_to_gravity():
+	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	if _cp_angle == 0: return;
 	if _cp_angle_left == 0: _cp_angle_left = _cp_angle;
 	var rot_angle = _cp_angle * deg_to_rad(gravity_rotation_speed)
@@ -71,6 +78,7 @@ func rotate_to_gravity():
 		_cp_angle = 0;
 
 func _process(delta: float) -> void:
+	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	gravity_length = gravity_listener.calculate_gravity().length()
 	
 	var no_gravity = gravity_length < 1
@@ -90,8 +98,11 @@ func _process(delta: float) -> void:
 			head_x_rotation = 0
 
 func _physics_process(delta):
+	if multiplayer_synchronizer.is_multiplayer_authority() and not multiplayer.is_server():
+		print(position)
+	
+	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	gravity_length = gravity_listener.calculate_gravity().length()
-	#print("gravity %s, velocity %s" % [round(gravity_length), round(linear_velocity.length())])
 	
 	var direction = Vector3.ZERO;
 	var sprint_mult = sprint_multiplier if Input.is_action_pressed("Sprint") else 1
@@ -138,17 +149,3 @@ func _physics_process(delta):
 	var accel_rate = acceleration if target_movement.length() > 0.01 else (0 if gravity_limit else deceleration);
 	var movement : Vector3 = speed_dif * accel_rate;
 	apply_central_force(movement)
-
-func format_vector3(v: Vector3) -> String:
-	var x_str = format_component(v.x)
-	var y_str = format_component(v.y)
-	var z_str = format_component(v.z)
-	
-	return "Vector3(%s, %s, %s)" % [x_str, y_str, z_str]
-	
-func format_component(f: float) -> String:
-	var sign = "+" if f >= 0 else "-"
-	var abs_f = abs(f)
-	var int_part = int(abs_f)
-	var leading_zero = "0" if int_part < 10 else ""
-	return "%s%s%.2f" % [sign, leading_zero, abs_f]

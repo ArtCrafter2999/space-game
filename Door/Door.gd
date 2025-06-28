@@ -13,9 +13,10 @@ var is_closed: bool:
 	get: 
 		return body.position == close_point.position
 
-var _open = false;
+@export var _open = false;
 func switch():
 	_open = !_open;
+@rpc("any_peer", "call_local")
 func open():
 	_open = true;
 func close():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bnia31i2o3o0h"]
+[gd_scene load_steps=7 format=3 uid="uid://bnia31i2o3o0h"]
 
 [ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="1_3an4s"]
 [ext_resource type="Texture2D" uid="uid://eacfiwwv7f3f" path="res://addons/kenney_prototype_textures/purple/texture_08.png" id="2_lplop"]
@@ -12,6 +12,14 @@ size = Vector3(0.4, 0.4, 0.4)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oa6wj"]
 size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rfa4p"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
 
 [node name="Cube" type="RigidBody3D"]
 collision_mask = 7
@@ -33,3 +41,6 @@ metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_oa6wj")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_rfa4p")

@@ -21,14 +21,15 @@ func _handle_door_release():
 	
 func grab():
 	_grabbed = true;
-	door.grab();
+	if multiplayer.is_server():
+		door.grab();
 	
 func release():
 	_grabbed = false;
-	door.release();
+	if multiplayer.is_server():
+		door.release();
 
 func _physics_process(delta: float) -> void:
-	#print(floor(rad_to_deg(door.rotation.y)))
 	var door_rotation = floor(rad_to_deg(door.body.rotation.y));
 	if(door_rotation > -2 && door_rotation < 20 && !freeze):
 		door_locked = true;
@@ -50,4 +51,3 @@ func _physics_process(delta: float) -> void:
 		lights.visible = true;
 	else:
 		lights.visible = false;
-	#print(_prev_colision_layer)

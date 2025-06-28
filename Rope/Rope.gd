@@ -13,7 +13,6 @@ func _ready() -> void:
 	var segment_amount = round(distance / new_segment.length);
 	
 	for i in (segment_amount-1):
-		#print(new_segment.global_position)
 		new_segment = segment.instantiate() as RopeSegment 
 		_add_new_segment(prev_segment, new_segment);
 		prev_segment = new_segment

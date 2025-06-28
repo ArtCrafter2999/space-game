@@ -7,7 +7,6 @@ extends Node3D
 
 func switch_gravity_room():
 	combined_door_2.switch();
-	print(combined_door_2.is_closed)
 	if(combined_door_2.is_closed):
 		anti_gravity.switch();
 		air_left.start()

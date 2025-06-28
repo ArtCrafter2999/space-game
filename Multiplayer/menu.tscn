@@ -1,0 +1,71 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqc8eouk7okbv"]
+
+[ext_resource type="Script" uid="uid://bxrfvey8wosny" path="res://Multiplayer/MultiplayerController.gd" id="1_fytbl"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fytbl")
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_left = 78.0
+offset_top = 247.0
+offset_right = 181.0
+offset_bottom = 302.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 233.0
+offset_top = 247.0
+offset_right = 336.0
+offset_bottom = 302.0
+text = "Join"
+
+[node name="StartGame" type="Button" parent="."]
+layout_mode = 0
+offset_left = 406.0
+offset_top = 247.0
+offset_right = 509.0
+offset_bottom = 302.0
+text = "Start game"
+
+[node name="IpInput" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 176.0
+offset_top = 370.0
+offset_right = 602.0
+offset_bottom = 434.0
+text = "127.0.0.1"
+
+[node name="Label" type="Label" parent="IpInput"]
+layout_mode = 0
+offset_left = -86.0
+offset_top = 19.0
+offset_right = -3.0
+offset_bottom = 51.0
+text = "Ip"
+
+[node name="UsernameInput" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 138.0
+offset_right = 592.0
+offset_bottom = 202.0
+
+[node name="Label" type="Label" parent="UsernameInput"]
+layout_mode = 0
+offset_left = -86.0
+offset_top = 19.0
+offset_right = -3.0
+offset_bottom = 51.0
+text = "UserName"
+
+[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]

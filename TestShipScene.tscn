@@ -96,7 +96,6 @@ transform = Transform3D(0.0598465, 0, 0.998208, 0, 1, 0, -0.998208, 0, 0.0598465
 [node name="AnimatableBody3D" type="AnimatableBody3D" parent="SpaceShip"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SpaceShip/AnimatableBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("ConcavePolygonShape3D_gxtfg")
 
 [node name="Area3D" type="Area3D" parent="SpaceShip"]

@@ -33,4 +33,3 @@ func _process(delta: float) -> void:
 		
 		for key in keys:
 			bus_effect[key] = lerpf(from[key], to[key], fade)
-	print(fade)

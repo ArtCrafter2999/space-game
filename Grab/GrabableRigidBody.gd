@@ -32,13 +32,20 @@ func _ready() -> void:
 
 func _get_object_rotation() -> Vector3:
 	return body.angular_velocity;
-	
+
+@rpc("any_peer", "call_local")
 func _set_object_rotation(value: Vector3):
 	body.angular_velocity = value;
-	
+	if not multiplayer.is_server():
+		_set_object_rotation.rpc_id(1, value);
+
+@rpc("any_peer", "call_local")
 func _set_object_position(value: Vector3):
 	body.linear_velocity = (value - body.global_position) * 10 * grab_strengh_multiplier / get_mass();
-	
+	if not multiplayer.is_server():
+		_set_object_position.rpc_id(1, value);
+
+@rpc("any_peer", "call_local")
 func grab():
 	super.grab();
 	_prev_angular_damp = body.angular_damp
@@ -47,15 +54,23 @@ func grab():
 	body.angular_damp = grabbed_angular_damp
 	body.collision_layer = grabbed_colision_layer
 	body.collision_mask = grabbed_colision_mask
+	if not multiplayer.is_server():
+		grab.rpc_id(1);
 
+@rpc("any_peer", "call_local")
 func release():
 	super.release();
 	body.angular_damp = _prev_angular_damp
 	body.collision_layer = _prev_colision_layer
 	body.collision_mask = _prev_colision_mask
+	if not multiplayer.is_server():
+		release.rpc_id(1);
 
+@rpc("any_peer", "call_local")
 func throw(impulse: Vector3):
 	body.linear_velocity = impulse * grab_strengh_multiplier;
+	if not multiplayer.is_server():
+		throw.rpc_id(1, impulse);
 
 func get_mass() -> float:
 	return body.mass / max(body.gravity_scale, 0.2);

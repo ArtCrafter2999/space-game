@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://eo8vl4uedjbf"]
+
+[ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="1_55gnk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iisml"]
+metallic = 1.0
+metallic_specular = 1.0
+roughness = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_5imwo"]
+material = SubResource("StandardMaterial3D_iisml")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8bg8d"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f5py1"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[node name="Mirror Block" type="RigidBody3D"]
+collision_mask = 7
+mass = 0.6
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_5imwo")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_8bg8d")
+
+[node name="Area3D" type="Area3D" parent="." node_paths=PackedStringArray("body")]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_55gnk")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_f5py1")

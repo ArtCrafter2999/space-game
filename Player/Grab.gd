@@ -9,10 +9,36 @@ extends Node3D
 @export var rotate_speed = .2
 @export var throw_strengh = 15
 
-var _grabbed_body: Grabbable = null;
+var _grabbed_body: Grabbable = null:
+	get: 
+		return _grabbed_body;
+
+@rpc("any_peer", "call_local")
+func setGrabbedBody(value):
+	if value is Node3D:
+		_grabbed_body = value;
+		if not multiplayer.is_server():
+			setGrabbedBody.rpc_id(1, value.get_path())
+	else:
+		var object = null;
+		if value:
+			object = get_node(value)
+		_grabbed_body = object;
+		if not multiplayer.is_server():
+			setGrabbedBody.rpc_id(1, value)
+
+@rpc("any_peer") # This RPC will be called by the client and executed on the server
+func setGrabbedBody_rpc(object_path_str: String):
+	var object = get_node(object_path_str)
+	print(multiplayer.get_unique_id(), " set grabbed body ", object)
+	_grabbed_body = object
+	
 var _rotate = 0;
 
+@onready var multiplayer_synchronizer: MultiplayerSynchronizer = %"MultiplayerSynchronizer"
+
 func _unhandled_input(event: InputEvent) -> void:
+	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	var _wheel_axis = Input.get_axis("Wheel Down", "Wheel Up");
 	if(_wheel_axis == 0): return;
 	if not Input.is_action_pressed("Change to Rotation"):
@@ -21,18 +47,20 @@ func _unhandled_input(event: InputEvent) -> void:
 		_rotate += rotate_mult * _wheel_axis;
 
 func _physics_process(delta: float) -> void:
+	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
+	
 	if Input.is_action_just_pressed("Interact") or \
 	 Input.is_action_just_pressed("Grab"):
 		var col: Object = interact_ray_cast.get_collider()
 		if Input.is_action_just_pressed("Grab") and \
 		 col is Grabbable:
-			_grabbed_body = col;
+			setGrabbedBody(col);
 			_grabbed_body.grab();
 		if Input.is_action_just_pressed("Interact") and \
 		 col is Interactable:
 			col.interact();
 	
-	if !_grabbed_body: return;
+	if not _grabbed_body: return;
 	_grabbed_body._get_object_position()
 	if _rotate != 0:
 		_grabbed_body.object_rotation.y += _rotate;
@@ -44,4 +72,5 @@ func _physics_process(delta: float) -> void:
 		_grabbed_body.release()
 		if Input.is_action_just_pressed("Throw"):
 			_grabbed_body.throw((grab_marker.global_position - global_position).normalized() * throw_strengh / _grabbed_body.get_mass())
-		_grabbed_body = null;
+		setGrabbedBody(null)
+		#_grabbed_body = null;

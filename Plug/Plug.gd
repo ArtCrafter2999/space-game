@@ -14,9 +14,12 @@ var received_data: Dictionary:
 	get:
 		return socket.data if is_plugged else {}
 
+@rpc("any_peer", "call_local")
 func unplug() -> void:
 	if(socket):
 		socket.plug_out();
+	if not multiplayer.is_server():
+		unplug.rpc_id(1);
 
 func receive_data(key: String):
 	if not is_plugged:
