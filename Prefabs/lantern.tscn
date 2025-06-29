@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d4dxxb33fqnxr"]
+[gd_scene load_steps=10 format=3 uid="uid://d4dxxb33fqnxr"]
 
 [ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="1_k5d3m"]
 [ext_resource type="Script" uid="uid://c7cxbf6kkp0bs" path="res://Gravity/GravityListener.gd" id="2_vhemj"]
+[ext_resource type="Script" uid="uid://cywcsoc1a0uwp" path="res://Multiplayer/ProximityAutorizer.gd" id="4_k5d3m"]
 [ext_resource type="Script" uid="uid://c3sl0tj7go3ut" path="res://Audio/Scripts/Audio.gd" id="4_w7mlf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iisml"]
@@ -48,10 +49,6 @@ collision_mask = 0
 monitoring = false
 script = ExtResource("1_k5d3m")
 body = NodePath("..")
-grabbed_self_colision_layer = null
-grabbed_self_colision_mask = null
-grabbed_other_colision_layer = null
-grabbed_other_colision_mask = null
 metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
@@ -77,6 +74,12 @@ gravity_listener = NodePath("../Area3D2")
 gi_mode = 2
 mesh = SubResource("BoxMesh_8bg8d")
 
+[node name="ProximityAuthorizer" type="Node3D" parent="." node_paths=PackedStringArray("authority_object")]
+script = ExtResource("4_k5d3m")
+authority_object = NodePath("..")
+metadata/_custom_type_script = "uid://cywcsoc1a0uwp"
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_k5d3m")
 visibility_update_mode = 1

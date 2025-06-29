@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ca8qrqsoc4s41"]
+[gd_scene load_steps=11 format=3 uid="uid://ca8qrqsoc4s41"]
 
 [ext_resource type="Script" uid="uid://d2k0po58xv0ib" path="res://Plug/Plug.gd" id="2_gexk8"]
 [ext_resource type="Texture2D" uid="uid://dm5ufhdwlfhyp" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="2_purq6"]
 [ext_resource type="Script" uid="uid://b6m3xkuagsug1" path="res://Plug/PlugArea.gd" id="3_oqdqx"]
 [ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="4_oqdqx"]
+[ext_resource type="Script" uid="uid://cywcsoc1a0uwp" path="res://Multiplayer/ProximityAutorizer.gd" id="5_hwex7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mt7li"]
 albedo_texture = ExtResource("2_purq6")
@@ -60,10 +61,6 @@ script = ExtResource("4_oqdqx")
 body = NodePath("..")
 grab_strengh_multiplier = 0.2
 grabbed_angular_damp = 6.0
-grabbed_self_colision_layer = null
-grabbed_self_colision_mask = null
-grabbed_other_colision_layer = null
-grabbed_other_colision_mask = null
 metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Grabbable"]
@@ -71,5 +68,10 @@ shape = SubResource("BoxShape3D_067m0")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_oqdqx")
+
+[node name="ProximityAuthorizer" type="Node3D" parent="." node_paths=PackedStringArray("authority_object")]
+script = ExtResource("5_hwex7")
+authority_object = NodePath("..")
+metadata/_custom_type_script = "uid://cywcsoc1a0uwp"
 
 [connection signal="on_grab" from="Grabbable" to="." method="unplug"]

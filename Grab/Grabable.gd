@@ -14,6 +14,7 @@ var object_position: Vector3:
 		_set_object_position(value);
 		
 signal on_grab
+signal on_grab_with_authority(playerId: int)
 signal on_release
 
 func _get_object_rotation() -> Vector3:
@@ -30,6 +31,7 @@ func _set_object_position(value: Vector3):
 
 func grab(playerId: int = multiplayer.get_unique_id()):
 	on_grab.emit();
+	on_grab_with_authority.emit(playerId)
 	pass
 
 func release():

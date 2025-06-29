@@ -16,6 +16,8 @@ class_name GrabbableRigidBody
 @export_flags_3d_physics var grabbed_other_colision_layer: int = 1
 @export_flags_3d_physics var grabbed_other_colision_mask: int = 7
 
+@onready var multiplayer_synchronizer: MultiplayerSynchronizer = %MultiplayerSynchronizer
+
 var _prev_angular_damp: float
 var _prev_colision_layer: int
 var _prev_colision_mask: int

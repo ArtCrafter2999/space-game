@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnia31i2o3o0h"]
+[gd_scene load_steps=8 format=3 uid="uid://bnia31i2o3o0h"]
 
 [ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="1_3an4s"]
 [ext_resource type="Texture2D" uid="uid://eacfiwwv7f3f" path="res://addons/kenney_prototype_textures/purple/texture_08.png" id="2_lplop"]
+[ext_resource type="Script" uid="uid://cywcsoc1a0uwp" path="res://Multiplayer/ProximityAutorizer.gd" id="3_gn4v5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxk7j"]
 albedo_texture = ExtResource("2_lplop")
@@ -43,15 +44,17 @@ collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_3an4s")
 body = NodePath("..")
-grabbed_self_colision_layer = null
-grabbed_self_colision_mask = null
-grabbed_other_colision_layer = null
-grabbed_other_colision_mask = null
 metadata/_custom_type_script = "uid://b5us0d3bgpn7m"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_oa6wj")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+unique_name_in_owner = true
 replication_config = SubResource("SceneReplicationConfig_rfa4p")
 visibility_update_mode = 1
+
+[node name="ProximityAuthorizer" type="Node3D" parent="." node_paths=PackedStringArray("authority_object")]
+script = ExtResource("3_gn4v5")
+authority_object = NodePath("..")
+metadata/_custom_type_script = "uid://cywcsoc1a0uwp"
