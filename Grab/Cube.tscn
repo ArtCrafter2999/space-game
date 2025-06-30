@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bnia31i2o3o0h"]
+[gd_scene load_steps=9 format=3 uid="uid://bnia31i2o3o0h"]
 
 [ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="1_3an4s"]
 [ext_resource type="Texture2D" uid="uid://eacfiwwv7f3f" path="res://addons/kenney_prototype_textures/purple/texture_08.png" id="2_lplop"]
 [ext_resource type="Script" uid="uid://cywcsoc1a0uwp" path="res://Multiplayer/ProximityAutorizer.gd" id="3_gn4v5"]
+[ext_resource type="PackedScene" uid="uid://dxex6wljlqn15" path="res://Multiplayer/proximity_authorizer.tscn" id="4_7f2nl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fxk7j"]
 albedo_texture = ExtResource("2_lplop")
@@ -58,3 +59,6 @@ visibility_update_mode = 1
 script = ExtResource("3_gn4v5")
 authority_object = NodePath("..")
 metadata/_custom_type_script = "uid://cywcsoc1a0uwp"
+
+[node name="ProximityAuthorizer2" parent="." node_paths=PackedStringArray("authority_object") instance=ExtResource("4_7f2nl")]
+authority_object = NodePath("..")

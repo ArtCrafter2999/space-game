@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dm5ufhdwlfhyp" path="res://addons/kenney_prototype_textures/light/texture_07.png" id="2_purq6"]
 [ext_resource type="Script" uid="uid://b6m3xkuagsug1" path="res://Plug/PlugArea.gd" id="3_oqdqx"]
 [ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="4_oqdqx"]
-[ext_resource type="Script" uid="uid://cywcsoc1a0uwp" path="res://Multiplayer/ProximityAutorizer.gd" id="5_hwex7"]
+[ext_resource type="PackedScene" uid="uid://dxex6wljlqn15" path="res://Multiplayer/proximity_authorizer.tscn" id="5_hwex7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mt7li"]
 albedo_texture = ExtResource("2_purq6")
@@ -69,9 +69,7 @@ shape = SubResource("BoxShape3D_067m0")
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_oqdqx")
 
-[node name="ProximityAuthorizer" type="Node3D" parent="." node_paths=PackedStringArray("authority_object")]
-script = ExtResource("5_hwex7")
+[node name="ProximityAuthorizer" parent="." node_paths=PackedStringArray("authority_object") instance=ExtResource("5_hwex7")]
 authority_object = NodePath("..")
-metadata/_custom_type_script = "uid://cywcsoc1a0uwp"
 
 [connection signal="on_grab" from="Grabbable" to="." method="unplug"]

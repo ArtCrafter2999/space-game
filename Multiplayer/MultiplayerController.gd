@@ -14,6 +14,10 @@ func _ready() -> void:
 # called on the server and clients when connects
 func player_connnected(id):
 	print("player connected " + str(id))
+	send_player_information.rpc_id(1,
+		username_input.text,
+		multiplayer.get_unique_id()
+	)
 	pass;
 
 # called on the server and clients when disconnects
@@ -24,10 +28,6 @@ func player_disconnnected(id):
 # called only from clients
 func connected_to_server():
 	print("connected to server")
-	send_player_information.rpc_id(1,
-		username_input.text,
-		multiplayer.get_unique_id()
-	)
 	pass;
 
 # called only from clients

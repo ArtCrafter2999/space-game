@@ -37,7 +37,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		_rotate += rotate_mult * _wheel_axis;
 
 func _physics_process(delta: float) -> void:
-	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
+	if multiplayer.has_multiplayer_peer() and not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	
 	if Input.is_action_just_pressed("Interact") or \
 	 Input.is_action_just_pressed("Grab"):

@@ -474,6 +474,1382 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.3574
 
 [node name="lantern" parent="Plane" instance=ExtResource("20_f5py1")]
 
+[node name="Plane2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.855924, -0.517101, 0, 0.517101, -0.855924, 0, 0, -29.1524)
+
+[node name="Plane" type="AnimatableBody3D" parent="Plane2"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane2/Plane"]
+material_override = SubResource("StandardMaterial3D_1f4xa")
+mesh = SubResource("PlaneMesh_iu0uh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_1dxo7")
+
+[node name="ShipGravity" type="Area3D" parent="Plane2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00618553, -9.53674e-07, 0.0364342)
+collision_layer = 0
+collision_mask = 7
+gravity_space_override = 1
+audio_bus_override = true
+audio_bus_name = &"Space"
+script = ExtResource("3_c73p6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/ShipGravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, 0)
+shape = SubResource("BoxShape3D_7a7n5")
+
+[node name="Microwave" parent="Plane2" instance=ExtResource("5_76gpq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.82715, 2.01153, -4.60981)
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Plane2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.728, 0.75, -4.76)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane2/AnimatableBody3D"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_nxl2t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_u6j2s")
+
+[node name="Plug" parent="Plane2" instance=ExtResource("6_qcksb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.47689, 0.116516, -9.10131)
+
+[node name="Socket" parent="Plane2" instance=ExtResource("7_0asn0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.77903, 1.6868, -9.98688)
+
+[node name="pillar3" type="AnimatableBody3D" parent="Plane2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.32115, 0.0191642, 6.85393)
+
+[node name="RopeEnd" parent="Plane2/pillar3" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+body = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane2/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_28meu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane2/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+visible = false
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
+[node name="pillar" type="AnimatableBody3D" parent="Plane2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10637, 0.0191647, 1.48974)
+
+[node name="RopeEnd" parent="Plane2/pillar" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+body = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane2/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_28meu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane2/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
+[node name="Cube8" parent="Plane2" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.25733, 1.71147, 6.02629)
+
+[node name="RopeEnd" parent="Plane2/Cube8" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+body = NodePath("..")
+
+[node name="Cube7" parent="Plane2" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98933, 1.71147, 6.36146)
+
+[node name="RopeEnd" parent="Plane2/Cube7" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+body = NodePath("..")
+
+[node name="Rope2" type="Node3D" parent="Plane2" node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("8_0h835")
+end_a = NodePath("../Cube8/RopeEnd")
+end_b = NodePath("../Cube7/RopeEnd")
+segment = ExtResource("9_2psmy")
+
+[node name="Rope" type="Node3D" parent="Plane2" node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("8_0h835")
+end_a = NodePath("../pillar/RopeEnd")
+end_b = NodePath("../pillar3/RopeEnd")
+segment = ExtResource("9_2psmy")
+
+[node name="Socket2" parent="Plane2" instance=ExtResource("7_0asn0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.2268, 0.299901, -5.05419)
+
+[node name="cubes" type="Node3D" parent="Plane2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00905, 0, 6.93626)
+
+[node name="Cube" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 0.849319, -0.610179)
+
+[node name="Cube2" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 0.849319, 1.08672)
+
+[node name="Cube3" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 0.849319, 1.08672)
+
+[node name="Cube4" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 0.849319, -0.133079)
+
+[node name="Cube5" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 0.849319, 0.478181)
+
+[node name="Cube6" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 1.71147, 0.478181)
+
+[node name="Cube7" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 1.64113, -0.610179)
+
+[node name="Cube8" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 1.64113, 1.08672)
+
+[node name="Cube9" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 1.64113, 1.08672)
+
+[node name="Cube10" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 1.64113, -0.133079)
+
+[node name="Cube11" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 1.64113, 0.478181)
+
+[node name="Cube12" parent="Plane2/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 2.50328, 0.478181)
+
+[node name="AntiGravityRoom" type="Node3D" parent="Plane2"]
+script = ExtResource("1_3qqfy")
+
+[node name="AirLeft" type="Timer" parent="Plane2/AntiGravityRoom"]
+wait_time = 3.0
+one_shot = true
+
+[node name="AntiGravity" type="Area3D" parent="Plane2/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 7.5)
+collision_layer = 0
+collision_mask = 7
+priority = 1
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(3, 2, 0)
+gravity_direction = Vector3(3, 2, 0)
+gravity = 20.0
+script = ExtResource("11_d8pwe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/AntiGravityRoom/AntiGravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_3ltq2")
+disabled = true
+
+[node name="wall" type="AnimatableBody3D" parent="Plane2/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 4.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane2/AntiGravityRoom/wall"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_pxewe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/AntiGravityRoom/wall"]
+shape = SubResource("BoxShape3D_4d8kc")
+
+[node name="ceiling" type="AnimatableBody3D" parent="Plane2/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 5.5, 4.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane2/AntiGravityRoom/ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 3)
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_tpcsm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/AntiGravityRoom/ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 3)
+shape = SubResource("BoxShape3D_yv54p")
+
+[node name="wall2" type="AnimatableBody3D" parent="Plane2/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 10.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane2/AntiGravityRoom/wall2"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_pxewe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane2/AntiGravityRoom/wall2"]
+shape = SubResource("BoxShape3D_4d8kc")
+
+[node name="CombinedDoor" type="Node3D" parent="Plane2/AntiGravityRoom" node_paths=PackedStringArray("parts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, 7.5)
+script = ExtResource("12_5jd6f")
+parts = [NodePath("Door1"), NodePath("Door2")]
+
+[node name="Door1" type="Node3D" parent="Plane2/AntiGravityRoom/CombinedDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door1"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door1/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+gi_mode = 2
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door1/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door1"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane2/AntiGravityRoom/CombinedDoor/Door1"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_8bg8d")
+
+[node name="Door2" type="Node3D" parent="Plane2/AntiGravityRoom/CombinedDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door2"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door2/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+gi_mode = 2
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door2/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door2"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane2/AntiGravityRoom/CombinedDoor/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane2/AntiGravityRoom/CombinedDoor/Door2"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_f5py1")
+
+[node name="CombinedDoor2" type="Node3D" parent="Plane2/AntiGravityRoom" node_paths=PackedStringArray("parts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, 0, 7.5)
+script = ExtResource("12_5jd6f")
+parts = [NodePath("Door1"), NodePath("Door2")]
+
+[node name="Door1" type="Node3D" parent="Plane2/AntiGravityRoom/CombinedDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door1"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door1/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door1/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door1"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door1"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_asirl")
+
+[node name="Door2" type="Node3D" parent="Plane2/AntiGravityRoom/CombinedDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door2"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door2/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door2/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door2"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane2/AntiGravityRoom/CombinedDoor2/Door2"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_iisml")
+
+[node name="Button" parent="Plane2/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.45215, 2, 3.99468)
+
+[node name="Button2" parent="Plane2/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63204, 2.09245, 5.005)
+
+[node name="Button3" parent="Plane2/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05118, 2.07892, 5.005)
+
+[node name="Button4" parent="Plane2/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.35749, 2, 3.99468)
+
+[node name="lantern" parent="Plane2" instance=ExtResource("20_f5py1")]
+
+[node name="Plane3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74227e-08, 0, -8.74227e-08, -1, 0, 25.6825, 5.33602e-07)
+
+[node name="Plane" type="AnimatableBody3D" parent="Plane3"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane3/Plane"]
+material_override = SubResource("StandardMaterial3D_1f4xa")
+mesh = SubResource("PlaneMesh_iu0uh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_1dxo7")
+
+[node name="ShipGravity" type="Area3D" parent="Plane3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00618553, -9.53674e-07, 0.0364342)
+collision_layer = 0
+collision_mask = 7
+gravity_space_override = 1
+audio_bus_override = true
+audio_bus_name = &"Space"
+script = ExtResource("3_c73p6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/ShipGravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, 0)
+shape = SubResource("BoxShape3D_7a7n5")
+
+[node name="Microwave" parent="Plane3" instance=ExtResource("5_76gpq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.82715, 2.01153, -4.60981)
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Plane3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.728, 0.75, -4.76)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane3/AnimatableBody3D"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_nxl2t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_u6j2s")
+
+[node name="Plug" parent="Plane3" instance=ExtResource("6_qcksb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.47689, 0.116516, -9.10131)
+
+[node name="Socket" parent="Plane3" instance=ExtResource("7_0asn0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.77903, 1.6868, -9.98688)
+
+[node name="pillar3" type="AnimatableBody3D" parent="Plane3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.32115, 0.0191642, 6.85393)
+
+[node name="RopeEnd" parent="Plane3/pillar3" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+body = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane3/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_28meu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane3/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+visible = false
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
+[node name="pillar" type="AnimatableBody3D" parent="Plane3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10637, 0.0191647, 1.48974)
+
+[node name="RopeEnd" parent="Plane3/pillar" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+body = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane3/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_28meu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane3/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
+[node name="Cube8" parent="Plane3" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.25733, 1.71147, 6.02629)
+
+[node name="RopeEnd" parent="Plane3/Cube8" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+body = NodePath("..")
+
+[node name="Cube7" parent="Plane3" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98933, 1.71147, 6.36146)
+
+[node name="RopeEnd" parent="Plane3/Cube7" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+body = NodePath("..")
+
+[node name="Rope2" type="Node3D" parent="Plane3" node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("8_0h835")
+end_a = NodePath("../Cube8/RopeEnd")
+end_b = NodePath("../Cube7/RopeEnd")
+segment = ExtResource("9_2psmy")
+
+[node name="Rope" type="Node3D" parent="Plane3" node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("8_0h835")
+end_a = NodePath("../pillar/RopeEnd")
+end_b = NodePath("../pillar3/RopeEnd")
+segment = ExtResource("9_2psmy")
+
+[node name="Socket2" parent="Plane3" instance=ExtResource("7_0asn0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.2268, 0.299901, -5.05419)
+
+[node name="cubes" type="Node3D" parent="Plane3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00905, 0, 6.93626)
+
+[node name="Cube" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 0.849319, -0.610179)
+
+[node name="Cube2" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 0.849319, 1.08672)
+
+[node name="Cube3" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 0.849319, 1.08672)
+
+[node name="Cube4" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 0.849319, -0.133079)
+
+[node name="Cube5" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 0.849319, 0.478181)
+
+[node name="Cube6" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 1.71147, 0.478181)
+
+[node name="Cube7" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 1.64113, -0.610179)
+
+[node name="Cube8" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 1.64113, 1.08672)
+
+[node name="Cube9" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 1.64113, 1.08672)
+
+[node name="Cube10" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 1.64113, -0.133079)
+
+[node name="Cube11" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 1.64113, 0.478181)
+
+[node name="Cube12" parent="Plane3/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 2.50328, 0.478181)
+
+[node name="AntiGravityRoom" type="Node3D" parent="Plane3"]
+script = ExtResource("1_3qqfy")
+
+[node name="AirLeft" type="Timer" parent="Plane3/AntiGravityRoom"]
+wait_time = 3.0
+one_shot = true
+
+[node name="AntiGravity" type="Area3D" parent="Plane3/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 7.5)
+collision_layer = 0
+collision_mask = 7
+priority = 1
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(3, 2, 0)
+gravity_direction = Vector3(3, 2, 0)
+gravity = 20.0
+script = ExtResource("11_d8pwe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/AntiGravityRoom/AntiGravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_3ltq2")
+disabled = true
+
+[node name="wall" type="AnimatableBody3D" parent="Plane3/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 4.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane3/AntiGravityRoom/wall"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_pxewe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/AntiGravityRoom/wall"]
+shape = SubResource("BoxShape3D_4d8kc")
+
+[node name="ceiling" type="AnimatableBody3D" parent="Plane3/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 5.5, 4.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane3/AntiGravityRoom/ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 3)
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_tpcsm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/AntiGravityRoom/ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 3)
+shape = SubResource("BoxShape3D_yv54p")
+
+[node name="wall2" type="AnimatableBody3D" parent="Plane3/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 10.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane3/AntiGravityRoom/wall2"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_pxewe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane3/AntiGravityRoom/wall2"]
+shape = SubResource("BoxShape3D_4d8kc")
+
+[node name="CombinedDoor" type="Node3D" parent="Plane3/AntiGravityRoom" node_paths=PackedStringArray("parts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, 7.5)
+script = ExtResource("12_5jd6f")
+parts = [NodePath("Door1"), NodePath("Door2")]
+
+[node name="Door1" type="Node3D" parent="Plane3/AntiGravityRoom/CombinedDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door1"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door1/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+gi_mode = 2
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door1/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door1"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane3/AntiGravityRoom/CombinedDoor/Door1"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_8bg8d")
+
+[node name="Door2" type="Node3D" parent="Plane3/AntiGravityRoom/CombinedDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door2"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door2/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+gi_mode = 2
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door2/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door2"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane3/AntiGravityRoom/CombinedDoor/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane3/AntiGravityRoom/CombinedDoor/Door2"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_f5py1")
+
+[node name="CombinedDoor2" type="Node3D" parent="Plane3/AntiGravityRoom" node_paths=PackedStringArray("parts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, 0, 7.5)
+script = ExtResource("12_5jd6f")
+parts = [NodePath("Door1"), NodePath("Door2")]
+
+[node name="Door1" type="Node3D" parent="Plane3/AntiGravityRoom/CombinedDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door1"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door1/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door1/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door1"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door1"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_asirl")
+
+[node name="Door2" type="Node3D" parent="Plane3/AntiGravityRoom/CombinedDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door2"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door2/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door2/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door2"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane3/AntiGravityRoom/CombinedDoor2/Door2"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_iisml")
+
+[node name="Button" parent="Plane3/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.45215, 2, 3.99468)
+
+[node name="Button2" parent="Plane3/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63204, 2.09245, 5.005)
+
+[node name="Button3" parent="Plane3/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05118, 2.07892, 5.005)
+
+[node name="Button4" parent="Plane3/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.35749, 2, 3.99468)
+
+[node name="lantern" parent="Plane3" instance=ExtResource("20_f5py1")]
+
+[node name="Plane4" type="Node3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, -7.10543e-15, 9.27259e-08, 9.27258e-08, 1, -0.707107, -0.707107, 1.31134e-07, 25.4456, 11.3681, 29.817)
+
+[node name="Plane" type="AnimatableBody3D" parent="Plane4"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane4/Plane"]
+material_override = SubResource("StandardMaterial3D_1f4xa")
+mesh = SubResource("PlaneMesh_iu0uh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_1dxo7")
+
+[node name="ShipGravity" type="Area3D" parent="Plane4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00618553, -9.53674e-07, 0.0364342)
+collision_layer = 0
+collision_mask = 7
+gravity_space_override = 1
+audio_bus_override = true
+audio_bus_name = &"Space"
+script = ExtResource("3_c73p6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/ShipGravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, 0)
+shape = SubResource("BoxShape3D_7a7n5")
+
+[node name="Microwave" parent="Plane4" instance=ExtResource("5_76gpq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.82715, 2.01153, -4.60981)
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Plane4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.728, 0.75, -4.76)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane4/AnimatableBody3D"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_nxl2t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_u6j2s")
+
+[node name="Plug" parent="Plane4" instance=ExtResource("6_qcksb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.47689, 0.116516, -9.10131)
+
+[node name="Socket" parent="Plane4" instance=ExtResource("7_0asn0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.77903, 1.6868, -9.98688)
+
+[node name="pillar3" type="AnimatableBody3D" parent="Plane4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.32115, 0.0191642, 6.85393)
+
+[node name="RopeEnd" parent="Plane4/pillar3" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+body = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane4/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_28meu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane4/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+visible = false
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
+[node name="pillar" type="AnimatableBody3D" parent="Plane4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10637, 0.0191647, 1.48974)
+
+[node name="RopeEnd" parent="Plane4/pillar" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+body = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane4/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_28meu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane4/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
+[node name="Cube8" parent="Plane4" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.25733, 1.71147, 6.02629)
+
+[node name="RopeEnd" parent="Plane4/Cube8" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+body = NodePath("..")
+
+[node name="Cube7" parent="Plane4" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98933, 1.71147, 6.36146)
+
+[node name="RopeEnd" parent="Plane4/Cube7" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+body = NodePath("..")
+
+[node name="Rope2" type="Node3D" parent="Plane4" node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("8_0h835")
+end_a = NodePath("../Cube8/RopeEnd")
+end_b = NodePath("../Cube7/RopeEnd")
+segment = ExtResource("9_2psmy")
+
+[node name="Rope" type="Node3D" parent="Plane4" node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("8_0h835")
+end_a = NodePath("../pillar/RopeEnd")
+end_b = NodePath("../pillar3/RopeEnd")
+segment = ExtResource("9_2psmy")
+
+[node name="Socket2" parent="Plane4" instance=ExtResource("7_0asn0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.2268, 0.299901, -5.05419)
+
+[node name="cubes" type="Node3D" parent="Plane4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00905, 0, 6.93626)
+
+[node name="Cube" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 0.849319, -0.610179)
+
+[node name="Cube2" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 0.849319, 1.08672)
+
+[node name="Cube3" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 0.849319, 1.08672)
+
+[node name="Cube4" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 0.849319, -0.133079)
+
+[node name="Cube5" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 0.849319, 0.478181)
+
+[node name="Cube6" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 1.71147, 0.478181)
+
+[node name="Cube7" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 1.64113, -0.610179)
+
+[node name="Cube8" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 1.64113, 1.08672)
+
+[node name="Cube9" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 1.64113, 1.08672)
+
+[node name="Cube10" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 1.64113, -0.133079)
+
+[node name="Cube11" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 1.64113, 0.478181)
+
+[node name="Cube12" parent="Plane4/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 2.50328, 0.478181)
+
+[node name="AntiGravityRoom" type="Node3D" parent="Plane4"]
+script = ExtResource("1_3qqfy")
+
+[node name="AirLeft" type="Timer" parent="Plane4/AntiGravityRoom"]
+wait_time = 3.0
+one_shot = true
+
+[node name="AntiGravity" type="Area3D" parent="Plane4/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 7.5)
+collision_layer = 0
+collision_mask = 7
+priority = 1
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(3, 2, 0)
+gravity_direction = Vector3(3, 2, 0)
+gravity = 20.0
+script = ExtResource("11_d8pwe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/AntiGravityRoom/AntiGravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_3ltq2")
+disabled = true
+
+[node name="wall" type="AnimatableBody3D" parent="Plane4/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 4.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane4/AntiGravityRoom/wall"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_pxewe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/AntiGravityRoom/wall"]
+shape = SubResource("BoxShape3D_4d8kc")
+
+[node name="ceiling" type="AnimatableBody3D" parent="Plane4/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 5.5, 4.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane4/AntiGravityRoom/ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 3)
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_tpcsm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/AntiGravityRoom/ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 3)
+shape = SubResource("BoxShape3D_yv54p")
+
+[node name="wall2" type="AnimatableBody3D" parent="Plane4/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 10.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane4/AntiGravityRoom/wall2"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_pxewe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane4/AntiGravityRoom/wall2"]
+shape = SubResource("BoxShape3D_4d8kc")
+
+[node name="CombinedDoor" type="Node3D" parent="Plane4/AntiGravityRoom" node_paths=PackedStringArray("parts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, 7.5)
+script = ExtResource("12_5jd6f")
+parts = [NodePath("Door1"), NodePath("Door2")]
+
+[node name="Door1" type="Node3D" parent="Plane4/AntiGravityRoom/CombinedDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door1"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door1/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+gi_mode = 2
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door1/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door1"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane4/AntiGravityRoom/CombinedDoor/Door1"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_8bg8d")
+
+[node name="Door2" type="Node3D" parent="Plane4/AntiGravityRoom/CombinedDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door2"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door2/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+gi_mode = 2
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door2/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door2"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane4/AntiGravityRoom/CombinedDoor/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane4/AntiGravityRoom/CombinedDoor/Door2"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_f5py1")
+
+[node name="CombinedDoor2" type="Node3D" parent="Plane4/AntiGravityRoom" node_paths=PackedStringArray("parts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, 0, 7.5)
+script = ExtResource("12_5jd6f")
+parts = [NodePath("Door1"), NodePath("Door2")]
+
+[node name="Door1" type="Node3D" parent="Plane4/AntiGravityRoom/CombinedDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door1"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door1/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door1/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door1"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door1"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_asirl")
+
+[node name="Door2" type="Node3D" parent="Plane4/AntiGravityRoom/CombinedDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door2"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door2/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door2/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door2"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane4/AntiGravityRoom/CombinedDoor2/Door2"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_iisml")
+
+[node name="Button" parent="Plane4/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.45215, 2, 3.99468)
+
+[node name="Button2" parent="Plane4/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63204, 2.09245, 5.005)
+
+[node name="Button3" parent="Plane4/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05118, 2.07892, 5.005)
+
+[node name="Button4" parent="Plane4/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.35749, 2, 3.99468)
+
+[node name="lantern" parent="Plane4" instance=ExtResource("20_f5py1")]
+
+[node name="Plane5" type="Node3D" parent="."]
+transform = Transform3D(0.362372, -0.786566, 0.5, 0.353554, 0.612372, 0.707106, -0.862372, -0.0794592, 0.5, 39.9271, 12.7091, -8.0329)
+
+[node name="Plane" type="AnimatableBody3D" parent="Plane5"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane5/Plane"]
+material_override = SubResource("StandardMaterial3D_1f4xa")
+mesh = SubResource("PlaneMesh_iu0uh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/Plane"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("BoxShape3D_1dxo7")
+
+[node name="ShipGravity" type="Area3D" parent="Plane5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00618553, -9.53674e-07, 0.0364342)
+collision_layer = 0
+collision_mask = 7
+gravity_space_override = 1
+audio_bus_override = true
+audio_bus_name = &"Space"
+script = ExtResource("3_c73p6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/ShipGravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9, 0)
+shape = SubResource("BoxShape3D_7a7n5")
+
+[node name="Microwave" parent="Plane5" instance=ExtResource("5_76gpq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.82715, 2.01153, -4.60981)
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="Plane5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.728, 0.75, -4.76)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane5/AnimatableBody3D"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_nxl2t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/AnimatableBody3D"]
+shape = SubResource("BoxShape3D_u6j2s")
+
+[node name="Plug" parent="Plane5" instance=ExtResource("6_qcksb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.47689, 0.116516, -9.10131)
+
+[node name="Socket" parent="Plane5" instance=ExtResource("7_0asn0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.77903, 1.6868, -9.98688)
+
+[node name="pillar3" type="AnimatableBody3D" parent="Plane5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.32115, 0.0191642, 6.85393)
+
+[node name="RopeEnd" parent="Plane5/pillar3" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+body = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane5/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_28meu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane5/pillar3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+visible = false
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
+[node name="pillar" type="AnimatableBody3D" parent="Plane5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10637, 0.0191647, 1.48974)
+
+[node name="RopeEnd" parent="Plane5/pillar" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+body = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane5/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("CylinderMesh_28meu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("CylinderShape3D_ekpib")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Plane5/pillar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.97377, 0)
+light_energy = 5.9
+shadow_enabled = true
+omni_range = 38.338
+
+[node name="Cube8" parent="Plane5" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.25733, 1.71147, 6.02629)
+
+[node name="RopeEnd" parent="Plane5/Cube8" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+body = NodePath("..")
+
+[node name="Cube7" parent="Plane5" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.98933, 1.71147, 6.36146)
+
+[node name="RopeEnd" parent="Plane5/Cube7" node_paths=PackedStringArray("body") instance=ExtResource("7_facub")]
+body = NodePath("..")
+
+[node name="Rope2" type="Node3D" parent="Plane5" node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("8_0h835")
+end_a = NodePath("../Cube8/RopeEnd")
+end_b = NodePath("../Cube7/RopeEnd")
+segment = ExtResource("9_2psmy")
+
+[node name="Rope" type="Node3D" parent="Plane5" node_paths=PackedStringArray("end_a", "end_b")]
+script = ExtResource("8_0h835")
+end_a = NodePath("../pillar/RopeEnd")
+end_b = NodePath("../pillar3/RopeEnd")
+segment = ExtResource("9_2psmy")
+
+[node name="Socket2" parent="Plane5" instance=ExtResource("7_0asn0")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.2268, 0.299901, -5.05419)
+
+[node name="cubes" type="Node3D" parent="Plane5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.00905, 0, 6.93626)
+
+[node name="Cube" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 0.849319, -0.610179)
+
+[node name="Cube2" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 0.849319, 1.08672)
+
+[node name="Cube3" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 0.849319, 1.08672)
+
+[node name="Cube4" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 0.849319, -0.133079)
+
+[node name="Cube5" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 0.849319, 0.478181)
+
+[node name="Cube6" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 1.71147, 0.478181)
+
+[node name="Cube7" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 1.64113, -0.610179)
+
+[node name="Cube8" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.216756, 1.64113, 1.08672)
+
+[node name="Cube9" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 1.64113, 1.08672)
+
+[node name="Cube10" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.60228, 1.64113, -0.133079)
+
+[node name="Cube11" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 1.64113, 0.478181)
+
+[node name="Cube12" parent="Plane5/cubes" instance=ExtResource("4_oohy4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.649264, 2.50328, 0.478181)
+
+[node name="AntiGravityRoom" type="Node3D" parent="Plane5"]
+script = ExtResource("1_3qqfy")
+
+[node name="AirLeft" type="Timer" parent="Plane5/AntiGravityRoom"]
+wait_time = 3.0
+one_shot = true
+
+[node name="AntiGravity" type="Area3D" parent="Plane5/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 7.5)
+collision_layer = 0
+collision_mask = 7
+priority = 1
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(3, 2, 0)
+gravity_direction = Vector3(3, 2, 0)
+gravity = 20.0
+script = ExtResource("11_d8pwe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/AntiGravityRoom/AntiGravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_3ltq2")
+disabled = true
+
+[node name="wall" type="AnimatableBody3D" parent="Plane5/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 4.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane5/AntiGravityRoom/wall"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_pxewe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/AntiGravityRoom/wall"]
+shape = SubResource("BoxShape3D_4d8kc")
+
+[node name="ceiling" type="AnimatableBody3D" parent="Plane5/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 5.5, 4.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane5/AntiGravityRoom/ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 3)
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_tpcsm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/AntiGravityRoom/ceiling"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 3)
+shape = SubResource("BoxShape3D_yv54p")
+
+[node name="wall2" type="AnimatableBody3D" parent="Plane5/AntiGravityRoom"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 2, 10.505)
+collision_mask = 7
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Plane5/AntiGravityRoom/wall2"]
+material_override = SubResource("StandardMaterial3D_5rhbq")
+mesh = SubResource("BoxMesh_pxewe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Plane5/AntiGravityRoom/wall2"]
+shape = SubResource("BoxShape3D_4d8kc")
+
+[node name="CombinedDoor" type="Node3D" parent="Plane5/AntiGravityRoom" node_paths=PackedStringArray("parts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, 7.5)
+script = ExtResource("12_5jd6f")
+parts = [NodePath("Door1"), NodePath("Door2")]
+
+[node name="Door1" type="Node3D" parent="Plane5/AntiGravityRoom/CombinedDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door1"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door1/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+gi_mode = 2
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door1/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door1"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane5/AntiGravityRoom/CombinedDoor/Door1"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_8bg8d")
+
+[node name="Door2" type="Node3D" parent="Plane5/AntiGravityRoom/CombinedDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door2"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door2/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+gi_mode = 2
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door2/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door2"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane5/AntiGravityRoom/CombinedDoor/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane5/AntiGravityRoom/CombinedDoor/Door2"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_f5py1")
+
+[node name="CombinedDoor2" type="Node3D" parent="Plane5/AntiGravityRoom" node_paths=PackedStringArray("parts")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2, 0, 7.5)
+script = ExtResource("12_5jd6f")
+parts = [NodePath("Door1"), NodePath("Door2")]
+
+[node name="Door1" type="Node3D" parent="Plane5/AntiGravityRoom/CombinedDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door1"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door1/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door1/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door1"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door1"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_asirl")
+
+[node name="Door2" type="Node3D" parent="Plane5/AntiGravityRoom/CombinedDoor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 1.25)
+script = ExtResource("13_o3732")
+
+[node name="DoorBody" type="AnimatableBody3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door2"]
+metadata/_edit_group_ = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door2/DoorBody"]
+material_override = SubResource("StandardMaterial3D_p11ke")
+mesh = SubResource("BoxMesh_8fdpo")
+skeleton = NodePath("../..")
+
+[node name="Collision" type="CollisionShape3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door2/DoorBody"]
+shape = SubResource("BoxShape3D_q0hl2")
+
+[node name="ClosedPoint" type="Marker3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door2"]
+
+[node name="OppenedPoint" type="Marker3D" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="Plane5/AntiGravityRoom/CombinedDoor2/Door2"]
+replication_interval = 0.5
+delta_interval = 0.5
+replication_config = SubResource("SceneReplicationConfig_iisml")
+
+[node name="Button" parent="Plane5/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 5.45215, 2, 3.99468)
+
+[node name="Button2" parent="Plane5/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63204, 2.09245, 5.005)
+
+[node name="Button3" parent="Plane5/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.05118, 2.07892, 5.005)
+
+[node name="Button4" parent="Plane5/AntiGravityRoom" instance=ExtResource("16_xbkab")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 8.35749, 2, 3.99468)
+
+[node name="lantern" parent="Plane5" instance=ExtResource("20_f5py1")]
+
 [node name="SpawnLocation" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11806, 2.56422, 0)
 
@@ -481,3 +1857,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.11806, 2.56422, 0)
 [connection signal="on_click" from="Plane/AntiGravityRoom/Button2" to="Plane/AntiGravityRoom/CombinedDoor" method="switch"]
 [connection signal="on_click" from="Plane/AntiGravityRoom/Button3" to="Plane/AntiGravityRoom" method="switch_gravity_room"]
 [connection signal="on_click" from="Plane/AntiGravityRoom/Button4" to="Plane/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane2/AntiGravityRoom/Button" to="Plane2/AntiGravityRoom/CombinedDoor" method="switch"]
+[connection signal="on_click" from="Plane2/AntiGravityRoom/Button2" to="Plane2/AntiGravityRoom/CombinedDoor" method="switch"]
+[connection signal="on_click" from="Plane2/AntiGravityRoom/Button3" to="Plane2/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane2/AntiGravityRoom/Button4" to="Plane2/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane3/AntiGravityRoom/Button" to="Plane3/AntiGravityRoom/CombinedDoor" method="switch"]
+[connection signal="on_click" from="Plane3/AntiGravityRoom/Button2" to="Plane3/AntiGravityRoom/CombinedDoor" method="switch"]
+[connection signal="on_click" from="Plane3/AntiGravityRoom/Button3" to="Plane3/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane3/AntiGravityRoom/Button4" to="Plane3/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane4/AntiGravityRoom/Button" to="Plane4/AntiGravityRoom/CombinedDoor" method="switch"]
+[connection signal="on_click" from="Plane4/AntiGravityRoom/Button2" to="Plane4/AntiGravityRoom/CombinedDoor" method="switch"]
+[connection signal="on_click" from="Plane4/AntiGravityRoom/Button3" to="Plane4/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane4/AntiGravityRoom/Button4" to="Plane4/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane5/AntiGravityRoom/Button" to="Plane5/AntiGravityRoom/CombinedDoor" method="switch"]
+[connection signal="on_click" from="Plane5/AntiGravityRoom/Button2" to="Plane5/AntiGravityRoom/CombinedDoor" method="switch"]
+[connection signal="on_click" from="Plane5/AntiGravityRoom/Button3" to="Plane5/AntiGravityRoom" method="switch_gravity_room"]
+[connection signal="on_click" from="Plane5/AntiGravityRoom/Button4" to="Plane5/AntiGravityRoom" method="switch_gravity_room"]

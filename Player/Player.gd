@@ -26,7 +26,7 @@ func _ready() -> void:
 		collision_mask = 7;
 	
 func handle_gravity_changed(gravity: Vector3):
-	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
+	if multiplayer.has_multiplayer_peer() and not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	if(gravity.length() < 1):
 		global_rotate(transform.basis.x, neck.rotation.x)
 		neck.rotation.x = 0
@@ -45,7 +45,7 @@ var head_x_rotation: float
 var body_x_rotation: float
 
 func _unhandled_input(event) -> void: 
-	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
+	if multiplayer.has_multiplayer_peer() and not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	if event is InputEventMouseButton && _esc:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_esc = false;
@@ -68,7 +68,7 @@ var _cp_angle: float = 0
 var _cp_angle_left: float = 0
 @export var gravity_rotation_speed = 1.5;
 func rotate_to_gravity():
-	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
+	if multiplayer.has_multiplayer_peer() and not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	if _cp_angle == 0: return;
 	if _cp_angle_left == 0: _cp_angle_left = _cp_angle;
 	var rot_angle = _cp_angle * deg_to_rad(gravity_rotation_speed)
@@ -81,7 +81,7 @@ func rotate_to_gravity():
 		_cp_angle = 0;
 
 func _process(delta: float) -> void:
-	if not multiplayer_synchronizer.is_multiplayer_authority(): return;
+	if multiplayer.has_multiplayer_peer() and not multiplayer_synchronizer.is_multiplayer_authority(): return;
 	gravity_length = gravity_listener.calculate_gravity().length()
 	
 	var no_gravity = gravity_length < 1
@@ -116,7 +116,7 @@ func _physics_process(delta):
 	var no_gravity = gravity_length < 1
 	var gravity_limit = no_gravity || gravity_length > 18
 	rotate_to_gravity()
-	if multiplayer_synchronizer.is_multiplayer_authority(): 
+	if multiplayer.has_multiplayer_peer() and multiplayer_synchronizer.is_multiplayer_authority(): 
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			if(_neck_y_rotation):
 				global_rotate(transform.basis.y, _y_rotation);

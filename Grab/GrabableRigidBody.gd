@@ -16,8 +16,6 @@ class_name GrabbableRigidBody
 @export_flags_3d_physics var grabbed_other_colision_layer: int = 1
 @export_flags_3d_physics var grabbed_other_colision_mask: int = 7
 
-@onready var multiplayer_synchronizer: MultiplayerSynchronizer = %MultiplayerSynchronizer
-
 var _prev_angular_damp: float
 var _prev_colision_layer: int
 var _prev_colision_mask: int
@@ -82,6 +80,7 @@ func _rpc_throw(impulse: Vector3):
 	body.linear_velocity = impulse * grab_strengh_multiplier;
 
 func get_mass() -> float:
+	assert(body.mass / max(body.gravity_scale, 0.2))
 	return body.mass / max(body.gravity_scale, 0.2);
 	
 func _enter_tree() -> void:

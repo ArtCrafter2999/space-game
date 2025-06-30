@@ -21,13 +21,11 @@ func _handle_door_release():
 
 func grab():
 	_grabbed = true;
-	if multiplayer.is_server():
-		door.grab();
+	door.grab();
 	
 func release():
 	_grabbed = false;
-	if multiplayer.is_server():
-		door.release();
+	door.release();
 
 func _physics_process(delta: float) -> void:
 	var door_rotation = floor(rad_to_deg(door.body.rotation.y));

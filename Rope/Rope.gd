@@ -10,6 +10,7 @@ func _ready() -> void:
 	var distance = end_a.global_position.distance_to(end_b.global_position);
 	_add_new_segment(prev_segment, new_segment);
 	prev_segment = new_segment
+	assert(new_segment.length)
 	var segment_amount = round(distance / new_segment.length);
 	
 	for i in (segment_amount-1):

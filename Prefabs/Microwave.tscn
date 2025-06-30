@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bgh3w365a5osi" path="res://Rope/WireSegment.tscn" id="3_jrew3"]
 [ext_resource type="Texture2D" uid="uid://kj2rkd2syj8s" path="res://addons/kenney_prototype_textures/orange/texture_08.png" id="3_si275"]
 [ext_resource type="Script" uid="uid://bwk1kj6ikohms" path="res://Rope/Rope.gd" id="7_po6t6"]
-[ext_resource type="Script" uid="uid://cywcsoc1a0uwp" path="res://Multiplayer/ProximityAutorizer.gd" id="8_4kywd"]
+[ext_resource type="PackedScene" uid="uid://dxex6wljlqn15" path="res://Multiplayer/proximity_authorizer.tscn" id="8_4kywd"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_22c3n"]
 friction = 0.9
@@ -158,10 +158,8 @@ light_size = 0.6
 replication_config = SubResource("SceneReplicationConfig_jrew3")
 visibility_update_mode = 1
 
-[node name="ProximityAuthorizer" type="Node3D" parent="." node_paths=PackedStringArray("authority_object")]
-script = ExtResource("8_4kywd")
+[node name="ProximityAuthorizer" parent="." node_paths=PackedStringArray("authority_object") instance=ExtResource("8_4kywd")]
 authority_object = NodePath("..")
-metadata/_custom_type_script = "uid://cywcsoc1a0uwp"
 
 [connection signal="on_grab" from="Grabbable" to="." method="grab"]
 [connection signal="on_release" from="Grabbable" to="." method="release"]
