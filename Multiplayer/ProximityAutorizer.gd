@@ -4,7 +4,7 @@ class_name ProximityAuthorizer
 
 @export var authority_object: Node
 @export var disabled: bool
-@export var authority: int = 1:
+var authority: int = 1:
 	get:
 		if not authority_object: return 0;
 		return authority_object.get_multiplayer_authority();

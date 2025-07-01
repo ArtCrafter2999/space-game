@@ -47,16 +47,16 @@ func _set_object_position(value: Vector3):
 func _rpc_set_object_position(value: Vector3):
 	body.linear_velocity = (value - body.global_position) * 10 * grab_strengh_multiplier / get_mass();
 
-func grab(playerId: int = multiplayer.get_unique_id()):
-	_rpc_grab.rpc(playerId);
+func grab():
+	_rpc_grab.rpc();
 @rpc("any_peer", "call_local")
-func _rpc_grab(playerId: int = multiplayer.get_unique_id()):
-	super.grab(playerId);
+func _rpc_grab():
+	super.grab();
 	_prev_angular_damp = body.angular_damp
 	_prev_colision_layer = body.collision_layer
 	_prev_colision_mask = body.collision_mask
 	body.angular_damp = grabbed_angular_damp
-	if playerId == multiplayer.get_unique_id():
+	if multiplayer.get_remote_sender_id() == multiplayer.get_unique_id():
 		body.collision_layer = grabbed_self_colision_layer
 		body.collision_mask = grabbed_self_colision_mask
 	else:

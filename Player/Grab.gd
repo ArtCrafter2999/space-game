@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Grab") and \
 		 col is Grabbable:
 			setGrabbedBody(col);
-			_grabbed_body.grab(multiplayer.get_unique_id());
+			_grabbed_body.grab();
 		if Input.is_action_just_pressed("Interact") and \
 		 col is Interactable:
 			col.interact();

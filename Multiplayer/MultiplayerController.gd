@@ -4,6 +4,7 @@ extends Control
 @export var port = 8910
 @onready var username_input: LineEdit = $UsernameInput
 @onready var ip_input: LineEdit = $IpInput
+@onready var start_game_button: Button = $StartGame
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(player_connnected)
@@ -68,6 +69,8 @@ func _on_host_button_down() -> void:
 	send_player_information(username_input.text, multiplayer.get_unique_id())
 	
 	print("waiting for player")
+	
+	start_game_button.visible = true;
 
 
 func _on_join_button_down() -> void:
@@ -79,5 +82,7 @@ func _on_join_button_down() -> void:
 	multiplayer.multiplayer_peer = peer;
 
 func _on_start_game_button_down() -> void:
-	start_game.rpc();
-	pass # Replace with function body.
+	if multiplayer.is_server():
+		start_game.rpc();
+	else:
+		start_game();

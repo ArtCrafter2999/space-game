@@ -8,7 +8,7 @@ properties/0/spawn = true
 properties/0/replication_mode = 2
 properties/1/path = NodePath(".:authority")
 properties/1/spawn = true
-properties/1/replication_mode = 2
+properties/1/replication_mode = 1
 
 [node name="ProximityAuthorizer" type="Node3D" node_paths=PackedStringArray("authority_object")]
 script = ExtResource("1_bbnpb")
