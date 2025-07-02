@@ -52,11 +52,14 @@ func grab():
 @rpc("any_peer", "call_local")
 func _rpc_grab():
 	super.grab();
+	var playerId = multiplayer.get_remote_sender_id();
+	if not playerId:
+		playerId = multiplayer.get_unique_id()
 	_prev_angular_damp = body.angular_damp
 	_prev_colision_layer = body.collision_layer
 	_prev_colision_mask = body.collision_mask
 	body.angular_damp = grabbed_angular_damp
-	if multiplayer.get_remote_sender_id() == multiplayer.get_unique_id():
+	if playerId == multiplayer.get_unique_id():
 		body.collision_layer = grabbed_self_colision_layer
 		body.collision_mask = grabbed_self_colision_mask
 	else:
