@@ -1,12 +1,27 @@
 extends Area3D
 class_name GravityListener
 
+var gravity_vector: Vector3:
+	get: 
+		return gravity_vector;
+	set(value):
+		if gravity_vector != value:
+			gravity_vector = value;
+			gravity_changed.emit(value)
+
+var gravity_limit: bool:
+	get:
+		var gravity_length = gravity_vector.length_squared()
+		return gravity_length < 1 or gravity_length > 324 # 18 squared
+		
+var gravity_areas: Array[Area3D] = []
+
 signal gravity_changed(Vector3)
 
-var gravity_areas: Array[Area3D] = []
-var _prev_result: Vector3
+func _physics_process(delta: float) -> void:
+	gravity_vector = _calculate_gravity()
 
-func calculate_gravity() -> Vector3:
+func _calculate_gravity() -> Vector3:
 	var clone: Array[Area3D] = gravity_areas.duplicate();
 	var result_gravity = Vector3.ZERO
 	var replace_priority
@@ -27,7 +42,4 @@ func calculate_gravity() -> Vector3:
 		else:
 			add_gravity += area.gravity_direction
 		result_gravity = add_gravity * area.gravity
-	if(_prev_result != null && result_gravity != _prev_result):
-		gravity_changed.emit(result_gravity)
-	_prev_result = result_gravity;
 	return result_gravity

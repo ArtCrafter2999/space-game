@@ -28,12 +28,21 @@ offset_bottom = 302.0
 text = "Join"
 
 [node name="StartGame" type="Button" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 406.0
 offset_top = 247.0
 offset_right = 509.0
 offset_bottom = 302.0
 text = "Start game"
+
+[node name="SinglePlayer" type="Button" parent="."]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 36.0
+offset_right = 162.0
+offset_bottom = 91.0
+text = "SinglePlayer"
 
 [node name="IpInput" type="LineEdit" parent="."]
 layout_mode = 0
@@ -69,3 +78,4 @@ text = "UserName"
 [connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
 [connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
 [connection signal="button_down" from="StartGame" to="." method="_on_start_game_button_down"]
+[connection signal="button_down" from="SinglePlayer" to="." method="_on_single_player_button_down"]

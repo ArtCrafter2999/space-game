@@ -6,17 +6,16 @@ var tween: Tween
 var in_space = false;
 var fade := 0.0;
 
-func _process(delta: float) -> void:
-	var gravity = gravity_listener.calculate_gravity().length()
+func _process(delta: float) -> void: # TODO: Change when adding air
 	var air_index = AudioServer.get_bus_index("Air");
-	if gravity < 0.01 and not in_space:
+	if gravity_listener.gravity_limit and not in_space:
 		in_space = true;
 		if tween:
 			tween.kill()
 		tween = create_tween();
 		tween.tween_property(self, "fade", 1, 0.2)
 			
-	elif gravity >= 0.01 and in_space:
+	elif gravity_listener.gravity_limit and in_space:
 		in_space = false;
 		if tween:
 			tween.kill()

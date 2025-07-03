@@ -1,13 +1,21 @@
-[gd_scene load_steps=22 format=3 uid="uid://c2jvgq5j7ebc3"]
+[gd_scene load_steps=30 format=3 uid="uid://c2jvgq5j7ebc3"]
 
 [ext_resource type="Script" uid="uid://cj77etr5i62ei" path="res://Player/Player.gd" id="1_ov2po"]
+[ext_resource type="Script" uid="uid://cty5at03mdem3" path="res://StateMachine/StateMachine.gd" id="2_j23h2"]
 [ext_resource type="Script" uid="uid://by5ju0njlbgdl" path="res://Player/Grab.gd" id="2_oh578"]
 [ext_resource type="Script" uid="uid://b4evo83opeq5y" path="res://Player/BodyMesh.gd" id="2_s1rgi"]
 [ext_resource type="Script" uid="uid://c7cxbf6kkp0bs" path="res://Gravity/GravityListener.gd" id="2_xpxqn"]
 [ext_resource type="Script" uid="uid://cuyyeyb83qhkn" path="res://Player/Cameras.gd" id="3_ddoul"]
+[ext_resource type="Script" uid="uid://c08ipj5o8sh64" path="res://Player/States/MoveOnGroundState.gd" id="3_v0k0e"]
+[ext_resource type="Script" uid="uid://darphq8dv7r5c" path="res://Player/GravityNormalizer.gd" id="4_5wa8t"]
+[ext_resource type="Script" uid="uid://bw8h2g5kbwv4h" path="res://Player/States/MouseVisibleState.gd" id="4_p7tob"]
 [ext_resource type="Script" uid="uid://bu337ii1qa70y" path="res://Player/Head.gd" id="4_vlldt"]
+[ext_resource type="Script" uid="uid://h8lrlyntlnii" path="res://Player/States/MoveNoGravityState.gd" id="5_3mea3"]
 [ext_resource type="Script" uid="uid://cse5p1f85v7sq" path="res://Player/SoundController.gd" id="5_8g4oa"]
 [ext_resource type="Texture2D" uid="uid://cxornj0057y0j" path="res://icon.svg" id="6_6ysni"]
+[ext_resource type="Script" uid="uid://do51144s5gv7r" path="res://Player/Inputs.gd" id="6_7v5gs"]
+[ext_resource type="Script" uid="uid://btbtgtmj3u52c" path="res://Player/MultiplayerAuthorizer.gd" id="6_dm7nj"]
+[ext_resource type="Script" uid="uid://d4fencktbbl58" path="res://Player/Neck.gd" id="10_dm7nj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ofuvd"]
 friction = 0.0
@@ -79,6 +87,31 @@ lock_rotation = true
 script = ExtResource("1_ov2po")
 metadata/_edit_group_ = true
 
+[node name="StateMachine" type="Node3D" parent="." node_paths=PackedStringArray("begining_state")]
+script = ExtResource("2_j23h2")
+begining_state = NodePath("MoveOnGroundState")
+
+[node name="MoveOnGroundState" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("no_gravity_state")]
+script = ExtResource("3_v0k0e")
+no_gravity_state = NodePath("../MoveNoGravityState")
+
+[node name="MoveNoGravityState" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("gravity_state")]
+script = ExtResource("5_3mea3")
+gravity_state = NodePath("../MoveOnGroundState")
+
+[node name="Inputs" type="Node" parent="."]
+script = ExtResource("6_7v5gs")
+
+[node name="GravityNormalizer" type="Node" parent="."]
+script = ExtResource("4_5wa8t")
+gravity_rotation_speed = 3.0
+
+[node name="PlayerAuthorizer" type="Node" parent="."]
+script = ExtResource("6_dm7nj")
+
+[node name="MouseVisible" type="Node" parent="."]
+script = ExtResource("4_p7tob")
+
 [node name="BodyMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
 gi_mode = 2
@@ -116,6 +149,7 @@ effects = Array[Dictionary]([{
 }])
 
 [node name="Neck" type="Node3D" parent="."]
+script = ExtResource("10_dm7nj")
 
 [node name="Head" type="Node3D" parent="Neck"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -198,3 +232,6 @@ root_path = NodePath("../..")
 replication_interval = 0.1
 delta_interval = 0.1
 replication_config = SubResource("SceneReplicationConfig_s1rgi")
+
+[connection signal="on_blur" from="MouseVisible" to="Inputs" method="disable" binds= ["blur"]]
+[connection signal="on_focus" from="MouseVisible" to="Inputs" method="enable" binds= ["blur"]]
