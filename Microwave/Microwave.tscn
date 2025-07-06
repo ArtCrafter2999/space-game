@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://vlyjwnu5k6jd"]
 
 [ext_resource type="Script" uid="uid://b5us0d3bgpn7m" path="res://Grab/GrabableRigidBody.gd" id="1_6kyr4"]
-[ext_resource type="Script" uid="uid://c5j4j5njaehms" path="res://Prefabs/Microwave.gd" id="1_bhc4q"]
+[ext_resource type="Script" uid="uid://c5j4j5njaehms" path="res://Microwave/Microwave.gd" id="1_bhc4q"]
 [ext_resource type="PackedScene" uid="uid://deni4dosbtepm" path="res://Rope/RopeEnd.tscn" id="2_pkpde"]
 [ext_resource type="PackedScene" uid="uid://ca8qrqsoc4s41" path="res://Plug/Plug.tscn" id="3_5cmua"]
 [ext_resource type="PackedScene" uid="uid://bgh3w365a5osi" path="res://Rope/WireSegment.tscn" id="3_jrew3"]

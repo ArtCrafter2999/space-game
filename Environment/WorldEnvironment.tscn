@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c5l2gdol1qyib"]
+
+[ext_resource type="Shader" uid="uid://cltajo14l6k6t" path="res://Environment/stars.gdshader" id="1_5tauh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u2c52"]
+shader = ExtResource("1_5tauh")
+shader_parameter/sky_color = Color(0.03, 0.05, 0.11, 1)
+shader_parameter/star_base_color = Color(1, 1, 1, 1)
+shader_parameter/star_hue_offset = 0.6
+shader_parameter/star_intensity = 0.08
+shader_parameter/star_twinkle_speed = 0.0
+shader_parameter/star_twinkle_intensity = 0.2
+shader_parameter/layer_scale = 20.0
+shader_parameter/layer_scale_step = 10.0
+shader_parameter/layers_count = 3
+
+[sub_resource type="Sky" id="Sky_qpw16"]
+sky_material = SubResource("ShaderMaterial_u2c52")
+
+[sub_resource type="Environment" id="Environment_1epfd"]
+background_mode = 2
+sky = SubResource("Sky_qpw16")
+ambient_light_source = 2
+ambient_light_color = Color(0, 0, 0.141176, 1)
+tonemap_mode = 2
+glow_enabled = true
+glow_blend_mode = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_1epfd")

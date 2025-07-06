@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var player_scene: PackedScene;
-@onready var spawn_location: Marker3D = $SpawnLocation
+@export var spawn_location: Node3D
 
 func _ready() -> void:
 	#var index = 0

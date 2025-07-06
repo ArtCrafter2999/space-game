@@ -1,7 +1,9 @@
 extends Control
 
+@export var load_scene: PackedScene
 #@export var address = "127.0.0.1"
 @export var port = 8910
+
 @onready var username_input: LineEdit = $UsernameInput
 @onready var ip_input: LineEdit = $IpInput
 @onready var start_game_button: Button = $StartGame
@@ -51,7 +53,7 @@ func send_player_information(name, id):
 
 @rpc("any_peer", "call_local")
 func start_game():
-	var scene = (load("res://TestScene.tscn") as PackedScene).instantiate()
+	var scene = load_scene.instantiate()
 	get_tree().root.add_child(scene);
 	hide();
 
