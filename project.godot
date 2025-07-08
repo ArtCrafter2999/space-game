@@ -110,6 +110,7 @@ Use={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="ThroughPlayer"
 3d_physics/layer_4="Grabable"
+3d_physics/layer_5="Ship"
 3d_physics/layer_6="Rope"
 
 [physics]

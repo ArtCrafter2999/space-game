@@ -28,7 +28,7 @@ func _rotate_to_gravity():
 	if _cp_angle_left == 0: _cp_angle_left = _cp_angle;
 	var rot_angle = _cp_angle * deg_to_rad(gravity_rotation_speed)
 	if(_cp_angle_left > rot_angle):
-		player.global_rotate(_cross_product,rot_angle);
+		player.global_rotate(_cross_product.normalized(), rot_angle);
 		_cp_angle_left -= rot_angle;
 	else:
 		player.global_rotate(_cross_product, _cp_angle_left)

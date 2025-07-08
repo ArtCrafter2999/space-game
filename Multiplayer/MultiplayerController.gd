@@ -92,6 +92,6 @@ func _on_start_game_button_down() -> void:
 
 func _on_single_player_button_down() -> void:
 	GameManager.players[1] = {"id": 1, "name": "host"}
-	var scene = (load("res://TestScene.tscn") as PackedScene).instantiate()
+	var scene = load_scene.instantiate()
 	get_tree().root.add_child(scene);
 	hide();

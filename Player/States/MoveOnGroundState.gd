@@ -13,6 +13,8 @@ extends StateBase
 @onready var inputs: Inputs = $"../../Inputs"
 
 func physics_process(delta: float) -> void:
+	var gravity_damp = gravity_listener.gravity_vector.length() / 9.8
+	
 	if gravity_listener.gravity_limit:
 		machine.change_state(no_gravity_state)
 		return;
@@ -28,7 +30,7 @@ func physics_process(delta: float) -> void:
 		player.apply_central_impulse(jump_velocity * player.transform.basis.y)
 	
 	# Максимальна швидкість з модифікаторами 
-	var target_movement : Vector3 = (direction * top_speed * sprint_mult);
+	var target_movement : Vector3 = (direction * top_speed * sprint_mult * gravity_damp);
 	
 	# Поточна швидкість гравця для додавання прискорення або сповільнення
 	var drag = player.linear_velocity

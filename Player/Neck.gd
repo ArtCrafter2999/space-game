@@ -5,7 +5,7 @@ extends Node3D
 @onready var gravity_listener: GravityListener = $"../GravityListener"
 @onready var player: Player = $".."
 
-var _y_rotation = 0;
+var _y_rotation: float = 0;
 var body_x_rotation: float
 
 func _process(delta: float) -> void:

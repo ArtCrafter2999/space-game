@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://d4fencktbbl58" path="res://Player/Neck.gd" id="10_dm7nj"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ofuvd"]
+friction = 0.0
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bt4at"]
 height = 2.5
@@ -83,7 +84,6 @@ collision_layer = 2
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_ofuvd")
 lock_rotation = true
-continuous_cd = true
 script = ExtResource("1_ov2po")
 metadata/_edit_group_ = true
 
@@ -97,7 +97,11 @@ no_gravity_state = NodePath("../MoveNoGravityState")
 
 [node name="MoveNoGravityState" type="Node3D" parent="StateMachine" node_paths=PackedStringArray("gravity_state")]
 script = ExtResource("5_3mea3")
+top_speed = null
+acceleration = null
+sprint_multiplier = null
 gravity_state = NodePath("../MoveOnGroundState")
+can_reenter = null
 
 [node name="Inputs" type="Node" parent="."]
 script = ExtResource("6_7v5gs")

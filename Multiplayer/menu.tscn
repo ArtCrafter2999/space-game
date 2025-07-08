@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cqc8eouk7okbv"]
 
 [ext_resource type="Script" uid="uid://bxrfvey8wosny" path="res://Multiplayer/MultiplayerController.gd" id="1_fytbl"]
-[ext_resource type="PackedScene" uid="uid://cfnj4sjd2hyk2" path="res://TestScene.tscn" id="2_872u5"]
+[ext_resource type="PackedScene" uid="uid://c80eauowhex61" path="res://TestShipScene.tscn" id="2_872u5"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
